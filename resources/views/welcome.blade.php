@@ -4,10 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>{{ config('app.name') }}</title>
   </head>
   <body class="antialiased">
-    <header class="bg-amber-50 min-h-screen flex flex-col">
+    <header
+      class="bg-amber-50 min-h-screen flex flex-col relative"
+      x-data="{}"
+      x-ref="header">
       <nav
         class="
           max-w-7xl
@@ -24,10 +30,36 @@
         <a href="#" class="text-2xl text-amber-600 font-bold">LOGO</a>
 
         <ul class="flex space-x-8">
-          <li><a href="#" class="text-amber-600">Accueil</a></li>
-          <li><a href="#" class="text-medium">Statut de votre demande</a></li>
-          <li><a href="#" class="text-medium">Faire une demande</a></li>
-          <li><a href="#" class="text-medium">Rendez-vous VIP</a></li>
+          <li><a href="#" class="text-medium text-amber-600">Accueil</a></li>
+          <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
+              >Statut de votre demande</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
+              >Faire une demande</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
+              >Rendez-vous
+              <span
+                class="
+                  uppercase
+                  font-semibold
+                  text-xs
+                  inline-block
+                  px-1
+                  py-1
+                  rounded-lg
+                  text-green-700
+                  bg-green-200
+                "
+                >Vip</span
+              >
+            </a>
+          </li>
         </ul>
       </nav>
       <div
@@ -71,6 +103,7 @@
               px-4
               py-3
               font-medium
+              hover:bg-amber-400
             ">
             <span>Commencer</span>
             <span class="ml-6"
@@ -86,6 +119,31 @@
             ></span>
           </button>
         </div>
+      </div>
+      <div
+        class="
+          p-4
+          absolute
+          bottom-0
+          mb-8
+          left-1/2
+          inline-flex
+          -translate-x-1/2
+        ">
+        <button
+          class="p-4 bg-white rounded-full shadow-xl animate-bounce"
+          @click="window.scrollTo({top: $refs.header.clientHeight, behavior: 'smooth'})">
+          <svg
+            class="w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
       </div>
     </header>
     <main>
@@ -222,7 +280,15 @@
                 mei et quod enim mnesarchum, habeo affert laoreet sea ei.
               </li>
             </ul>
-            <button class="px-5 py-3 text-white bg-blueGray-800 font-medium">
+            <button
+              class="
+                px-5
+                py-3
+                text-white
+                bg-blueGray-800
+                font-medium
+                hover:bg-blueGray-700
+              ">
               Obtenir la <span class="text-amber-300">Carte Consulaire</span>
             </button>
           </div>

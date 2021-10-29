@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DemandsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/demands', [DemandsController::class, 'index'])->name('demands.index');
+Route::get('/demands-status', [DemandsController::class, 'show'])->name('demands.show');
