@@ -3,10 +3,13 @@
     <h1 class="text-3xl font-bold text-center text-gray-800">
       Vérifier le statut de vos demandes
     </h1>
-    <div class="w-full flex py-12">
+    <div
+      class="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 py-12 gap-5">
       <input
         type=""
         class="
+          lg:col-span-3
+          md:col-span-2
           shadow-sm
           flex-grow
           border border-blueGray-400
@@ -25,8 +28,7 @@
           pr-6
           py-2
           bg-blueGray-800
-          text-white
-          ml-4
+          text-white text-left
           hover:bg-blueGray-600
         ">
         Rechercher
@@ -115,7 +117,7 @@
         <span class="font-medium text-sm text-gray-600"
           >Documents mis en ligne</span
         >
-        <div class="grid grid-cols-4 gap-5 mt-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-4">
           <div
             class="
               flex flex-col
@@ -138,7 +140,61 @@
                   clip-rule="evenodd"></path>
               </svg>
             </span>
-            <span class="text-sm text-gray-700">Photo d'identité</span>
+            <span class="text-sm text-gray-700 text-center"
+              >Photo d'identité</span
+            >
+          </div>
+          <div
+            class="
+              flex flex-col
+              items-center
+              border border-gray-200
+              space-y-4
+              px-2
+              py-4
+              rounded-md
+            ">
+            <span>
+              <svg
+                class="w-14 h-14"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </span>
+            <span class="text-sm text-gray-700 text-center"
+              >Ancien acte de naissance</span
+            >
+          </div>
+          <div
+            class="
+              flex flex-col
+              items-center
+              border border-gray-200
+              space-y-4
+              px-2
+              py-4
+              rounded-md
+            ">
+            <span>
+              <svg
+                class="w-14 h-14"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </span>
+            <span class="text-sm text-gray-700 text-center"
+              >Acte de naissance</span
+            >
           </div>
         </div>
       </div>

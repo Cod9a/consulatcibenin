@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 
 class DemandsController extends Controller
 {
     public function index() {
-        return view('demands.index');
+        $documents = Document::all();
+        return view('demands.index', compact('documents'));
     }
 
     public function show() {

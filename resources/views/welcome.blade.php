@@ -14,54 +14,7 @@
       class="bg-amber-50 min-h-screen flex flex-col relative"
       x-data="{}"
       x-ref="header">
-      <nav
-        class="
-          max-w-7xl
-          w-full
-          mx-auto
-          px-4
-          md:px-6
-          lg:px-8
-          py-6
-          flex
-          items-center
-          justify-between
-        ">
-        <a href="#" class="text-2xl text-amber-600 font-bold">LOGO</a>
-
-        <ul class="flex space-x-8">
-          <li><a href="#" class="text-medium text-amber-600">Accueil</a></li>
-          <li>
-            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
-              >Statut de votre demande</a
-            >
-          </li>
-          <li>
-            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
-              >Faire une demande</a
-            >
-          </li>
-          <li>
-            <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
-              >Rendez-vous
-              <span
-                class="
-                  uppercase
-                  font-semibold
-                  text-xs
-                  inline-block
-                  px-1
-                  py-1
-                  rounded-lg
-                  text-green-700
-                  bg-green-200
-                "
-                >Vip</span
-              >
-            </a>
-          </li>
-        </ul>
-      </nav>
+      @include('layouts.navigation')
       <div
         class="
           flex-grow
@@ -76,7 +29,16 @@
           background-image: url(https://images.unsplash.com/photo-1633114128729-0a8dc13406b9?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80);
         ">
         <div
-          class="relative flex flex-col items-center justify-center max-w-xl">
+          class="
+            relative
+            flex flex-col
+            items-center
+            justify-center
+            max-w-xl
+            px-4
+            md:px-6
+            lg:px-8
+          ">
           <h1
             class="
               text-4xl text-center
@@ -151,97 +113,10 @@
         <h1 class="text-3xl font-bold text-center text-gray-800">
           Choisissez l'acte consulaire à établir
         </h1>
-        <div class="grid grid-cols-3 gap-8">
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
-          <div>
-            <h3 class="mt-12 text-xl font-bold text-gray-700">
-              Carte Consulaire
-            </h3>
-            <p class="mt-8">
-              Eos tota dicunt democritum no. Has natum gubergren ne. Est viris
-              soleat sadipscing cu. Legere epicuri insolens eu nec, dicit
-              virtute urbanitas id nam, qui in habeo semper eligendi.
-            </p>
-            <a
-              href="#"
-              class="mt-4 inline-block text-blue-700 font-medium underline"
-              >Demander</a
-            >
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          @foreach($documents as $document)
+          <x-document-card :document="$document"></x-document-card>
+          @endforeach
         </div>
       </section>
       <section class="bg-amber-50">
@@ -253,7 +128,8 @@
             md:px-6
             lg:px-8
             py-24
-            grid grid-cols-2
+            grid grid-cols-1
+            sm:grid-cols-2
             gap-8
           ">
           <div class="">
@@ -263,7 +139,7 @@
             <h1 class="text-3xl font-bold">
               Découvrez la nouvelle Carte Consulaire
             </h1>
-            <ul class="space-y-6">
+            <ul class="space-y-6 mt-4">
               <li>
                 Assum suavitate ea vel, vero erat doming cu cum. Zril ornatus
                 sea cu. Pro ex integre pertinax. Cu cum harum paulo legendos,
@@ -288,6 +164,7 @@
                 bg-blueGray-800
                 font-medium
                 hover:bg-blueGray-700
+                mt-4
               ">
               Obtenir la <span class="text-amber-300">Carte Consulaire</span>
             </button>

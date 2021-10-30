@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemandsController;
+use App\Http\Controllers\DocumentDemandsController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,7 @@ use App\Http\Controllers\DemandsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, '__invoke'])->name('welcome');
 Route::get('/demands', [DemandsController::class, 'index'])->name('demands.index');
-Route::get('/demands-status', [DemandsController::class, 'show'])->name('demands.show');
+Route::get('/demand-status', [DemandsController::class, 'show'])->name('demands.show');
+Route::get('/documents/{document}/demands/create', [DocumentDemandsController::class, 'create'])->name('documents.demands.create');
