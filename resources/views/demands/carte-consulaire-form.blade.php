@@ -1,62 +1,34 @@
 <x-app-layout>
-  <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+  <section
+    class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8"
+    x-data="{
+            step: 1,
+            nSteps: 4,
+            nextStep() {
+                step++;
+            }
+        }"
+    x-init="console.log( $refs.form.querySelectorAll('fieldset').length)">
     <h3 class="font-medium text-2xl">
       Formulaire de création d'une Carte Consulaire Biométrique
     </h3>
     <div class="my-8 flex justify-between gap-5">
-      <div class="relative flex-grow">
-        <button
-          class="
-            w-6
-            h-6
-            bg-blue-500
-            inline-flex
-            items-center
-            justify-center
-            rounded-full
-            font-semibold
-            text-white
-            after:absolute after:w-full after:h-px after:bg-black after:left-7
-          ">
-          1
-        </button>
-      </div>
-      <div class="relative flex-grow">
-        <button
-          class="
-            w-6
-            h-6
-            bg-blue-500
-            inline-flex
-            items-center
-            justify-center
-            rounded-full
-            font-semibold
-            text-white
-            after:absolute after:w-full after:h-px after:bg-black after:left-7
-          ">
-          2
-        </button>
-      </div>
-      <div class="relative flex-shrink-0">
-        <button
-          class="
-            w-6
-            h-6
-            bg-blue-500
-            inline-flex
-            items-center
-            justify-center
-            rounded-full
-            font-semibold
-            text-white
-          ">
-          3
-        </button>
-      </div>
+      <template x-for="i in nSteps">
+        <div
+          :class="i === nSteps ? 'relative flex-shrink-0' : 'relative flex-grow'">
+          <button
+            :class="
+            i === nSteps ?  'w-6 h-6 bg-blue-500 inline-flex items-center justify-center rounded-full font-semibold text-white ' : 'w-6 h-6 bg-blue-500 inline-flex items-center justify-center rounded-full font-semibold text-white after:absolute after:w-full after:h-px after:bg-black after:left-7' "
+            x-text="i"
+            @click="step = i"></button>
+        </div>
+      </template>
     </div>
-    <form>
-      <fieldset class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <form x-ref="form">
+      <fieldset
+        x-cloak
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        x-show="step === 1">
         <div class="flex flex-col">
           <label for="last-name">Nom</label>
           <x-input
@@ -206,7 +178,10 @@
           <x-validation-errors name="mailbox"></x-validation-errors>
         </div>
       </fieldset>
-      <fieldset class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <fieldset
+        x-cloak
+        class="grid grid-cols-1 md:grid-cols-2 gap-5"
+        x-show="step === 2">
         <div class="flex flex-col">
           <label for="father-last-name">Nom du père</label>
           <x-input
@@ -333,6 +308,119 @@
             name="ravip_number"
             required />
           <x-validation-errors name="ravip_number"></x-validation-errors>
+        </div>
+      </fieldset>
+      <fieldset
+        x-cloak
+        class="grid grid-cols-1 md:grid-cols-2 gap-5"
+        x-show="step === 3">
+        <div class="flex flex-col">
+          <label for="benin-contact-fullname">Contact au Bénin</label>
+          <x-input
+            :error="$errors->has('benin_contact_fullname')"
+            id="benin-contact-fullname"
+            type="text"
+            :value="old('benin_contact_fullname')"
+            name="benin_contact_fullname"
+            required />
+          <x-validation-errors
+            name="benin_contact_fullname"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="benin-contact-phone"
+            >Numéro de téléphone du contact</label
+          >
+          <x-input
+            :error="$errors->has('benin_contact_phone')"
+            id="benin-contact-phone"
+            type="text"
+            :value="old('benin_contact_phone')"
+            name="benin_contact_phone"
+            required />
+          <x-validation-errors name="benin_contact_phone"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="ci-contact-fullname">Contact en Côte d'Ivoire</label>
+          <x-input
+            :error="$errors->has('ci_contact_fullname')"
+            id="ci-contact-fullname"
+            type="text"
+            :value="old('ci_contact_fullname')"
+            name="ci_contact_fullname"
+            required />
+          <x-validation-errors name="ci_contact_fullname"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="ci-contact-phone">Numéro de téléphone du contact</label>
+          <x-input
+            :error="$errors->has('ci_contact_phone')"
+            id="ci-contact-phone"
+            type="text"
+            :value="old('ci_contact_phone')"
+            name="ci_contact_phone"
+            required />
+          <x-validation-errors name="ci_contact_phone"></x-validation-errors>
+        </div>
+      </fieldset>
+      <fieldset
+        x-cloak
+        class="grid grid-cols-1 md:grid-cols-2 gap-5"
+        x-show="step === 4">
+        <div class="flex flex-col">
+          <label for="eye-color">Couleur des Yeux</label>
+          <x-input
+            :error="$errors->has('eye_color')"
+            id="eye-color"
+            type="text"
+            :value="old('eye_color')"
+            name="eye_color"
+            required />
+          <x-validation-errors name="eye_color"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="hair-color">Couleur des cheveux</label>
+          <x-input
+            :error="$errors->has('hair_color')"
+            id="hair-color"
+            type="text"
+            :value="old('hair_color')"
+            name="hair_color"
+            required />
+          <x-validation-errors name="hair_color"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="complexion-color">Teint</label>
+          <x-input
+            :error="$errors->has('complexion_color')"
+            id="complexion-color"
+            type="text"
+            :value="old('complexion_color')"
+            name="complexion_color"
+            required />
+          <x-validation-errors name="complexion_color"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="height">Taille</label>
+          <x-input
+            :error="$errors->has('height')"
+            id="height"
+            type="number"
+            :value="old('height')"
+            name="height"
+            required />
+          <x-validation-errors name="height"></x-validation-errors>
+        </div>
+        <div class="flex flex-col md:col-span-2">
+          <label for="other-signs">Autres signes</label>
+          <x-textarea
+            :error="$errors->has('other_signs')"
+            id="other-signs"
+            type="text"
+            name="other_signs"
+            required
+            >{{ old('other_signs') }}</x-textarea
+          >
+          <x-validation-errors name="other_signs"></x-validation-errors>
         </div>
       </fieldset>
     </form>
