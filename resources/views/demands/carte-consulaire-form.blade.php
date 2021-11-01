@@ -67,7 +67,7 @@
           <x-validation-errors name="birthdate"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="origin_country">Pays de naissance</label>
+          <label for="origin-country">Pays de naissance</label>
           <x-input
             :error="$errors->has('origin_country')"
             id="origin-country"
@@ -79,7 +79,7 @@
           <x-validation-errors name="first_name"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="origin_commune">Commune de naissance</label>
+          <label for="origin-commune">Commune de naissance</label>
           <x-input
             :error="$errors->has('origine_commune')"
             id="origin-commune"
@@ -102,7 +102,19 @@
           <x-validation-errors name="job"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="origin_commune">Numéro de téléphone</label>
+          <label for="diploma">Diplôme</label>
+          <x-input
+            :error="$errors->has('diploma')"
+            id="diploma"
+            type="text"
+            :value="old('diploma')"
+            name="diploma"
+            required
+            autocomplete="organization-title" />
+          <x-validation-errors name="diploma"></x-validation-errors>
+        </div>
+        <div class="flex flex-col">
+          <label for="phone">Numéro de téléphone</label>
           <x-input
             :error="$errors->has('phone')"
             id="phone"
@@ -114,10 +126,10 @@
           <x-validation-errors name="phone"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="origin_commune">Numéro de téléphone alternatif</label>
+          <label for="phone-alt">Numéro de téléphone alternatif</label>
           <x-input
             :error="$errors->has('phone_alt')"
-            id="phone_alt"
+            id="phone-alt"
             type="text"
             :value="old('phone_alt')"
             name="phone_alt"
@@ -126,10 +138,10 @@
           <x-validation-errors name="phone_alt"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="spouse_name">Nom de votre époux</label>
+          <label for="spouse-name">Nom de votre époux</label>
           <x-input
             :error="$errors->has('spouse_name')"
-            id="spouse_name"
+            id="spouse-name"
             type="text"
             :value="old('spouse_name')"
             name="spouse_name"
@@ -176,6 +188,11 @@
             name="mailbox"
             required />
           <x-validation-errors name="mailbox"></x-validation-errors>
+        </div>
+        <div class="flex items-end">
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step++">
+            Suivant
+          </button>
         </div>
       </fieldset>
       <fieldset
@@ -279,10 +296,10 @@
             <div>
               <input
                 type="radio"
-                id="maried"
+                id="couple"
                 name="marital_situation"
-                value="maried" />
-              <label for="maried">Marié</label>
+                value="couple" />
+              <label for="couple">Marié</label>
             </div>
           </div>
           <x-validation-errors name="marital_situation"></x-validation-errors>
@@ -308,6 +325,14 @@
             name="ravip_number"
             required />
           <x-validation-errors name="ravip_number"></x-validation-errors>
+        </div>
+        <div class="flex space-x-4">
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step--">
+            Précédent
+          </button>
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step++">
+            Suivant
+          </button>
         </div>
       </fieldset>
       <fieldset
@@ -361,6 +386,14 @@
             required />
           <x-validation-errors name="ci_contact_phone"></x-validation-errors>
         </div>
+        <div class="flex space-x-4">
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step--">
+            Précédent
+          </button>
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step++">
+            Suivant
+          </button>
+        </div>
       </fieldset>
       <fieldset
         x-cloak
@@ -400,7 +433,7 @@
           <x-validation-errors name="complexion_color"></x-validation-errors>
         </div>
         <div class="flex flex-col">
-          <label for="height">Taille</label>
+          <label for="height">Taille (en cm)</label>
           <x-input
             :error="$errors->has('height')"
             id="height"
@@ -421,6 +454,11 @@
             >{{ old('other_signs') }}</x-textarea
           >
           <x-validation-errors name="other_signs"></x-validation-errors>
+        </div>
+        <div class="flex space-x-4">
+          <button class="bg-amber-500 px-3 py-2 text-white" @click="step--">
+            Précédent
+          </button>
         </div>
       </fieldset>
     </form>
