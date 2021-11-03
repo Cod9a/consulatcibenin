@@ -39,6 +39,11 @@ class MeetingController extends Controller
                 'payment_token' => 'Vous ne pouvez pas etablir plusieurs rendez-vous pour une meme demande',
             ]);
         }
+        if ($demand->status !== 'disponible')  {
+            throw ValidationException::withMessages([
+                'payment_token' => 'Votre document n\'est pas encore prêt',
+            ]);
+        }
         $meeting = Meeting::create([
             'demand_id' => $demand->id,
             'meeting_date' => $request->meeting_date,
