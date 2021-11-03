@@ -24,6 +24,7 @@ class CarteConsulaireFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'photo' => ['required', 'image', 'max:512'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date', 'before:now'],
@@ -31,10 +32,10 @@ class CarteConsulaireFormRequest extends FormRequest
             'origin_commune' => ['required', 'string', 'max:255'],
             'job' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255', 'min:8'],
-            'phone_alt' => ['required', 'string', 'max:255', 'min:8'],
+            'phone_alt' => ['nullable', 'string', 'max:255', 'min:8', ''],
             'email' => ['required', 'email'],
             'genre' => ['required', 'string', 'max:255', 'in:male,female'],
-            'mailbox' => ['required', 'string', 'max:255'],
+            'mailbox' => ['nullable', 'string', 'max:255'],
             'spouse_name' => ['nullable', 'string', 'max:255'],
             'diploma' => ['nullable', 'string', 'max:255'],
             // That's it for the first form
@@ -57,7 +58,7 @@ class CarteConsulaireFormRequest extends FormRequest
             'eye_color' => ['required', 'string', 'max:255'],
             'hair_color' => ['required', 'string', 'max:255'],
             'complexion_color' => ['required', 'string', 'max:255'],
-            'other_signs' => ['required', 'string'],
+            'other_signs' => ['nullable', 'string'],
             'height' => ['required', 'min:0', 'numeric'],
         ];
     }

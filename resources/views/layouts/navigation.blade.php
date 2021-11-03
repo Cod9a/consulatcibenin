@@ -82,7 +82,9 @@
         :active="request()->routeIs('demands.index')"
         >Faire une demande</x-nav-link
       >
-      <x-nav-link href="#" :active="request()->route('demands.index')"
+      <x-nav-link
+        :href="route('meetings.create')"
+        :active="request()->route('meetings.create')"
         >Rendez-vous
         <span
           class="
@@ -123,7 +125,10 @@
       >
     </li>
     <li>
-      <a href="#" class="text-gray-800 hover:text-gray-600 text-medium"
+      <x-nav-link
+        :href="route('meetings.create')"
+        :active="request()->routeIs('meetings.create')"
+        class="text-gray-800 hover:text-gray-600 text-medium"
         >Rendez-vous
         <span
           class="
@@ -139,7 +144,7 @@
           "
           >Vip</span
         >
-      </a>
+      </x-nav-link>
     </li>
   </ul>
 </nav>

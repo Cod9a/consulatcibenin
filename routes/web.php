@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemandsController;
 use App\Http\Controllers\DocumentDemandsController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -20,3 +21,4 @@ Route::get('/', [WelcomeController::class, '__invoke'])->name('welcome');
 Route::get('/demands', [DemandsController::class, 'index'])->name('demands.index');
 Route::get('/demand-status', [DemandsController::class, 'show'])->name('demands.show');
 Route::get('/documents/{document}/demands/create', [DocumentDemandsController::class, 'create'])->name('documents.demands.create');
+Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
