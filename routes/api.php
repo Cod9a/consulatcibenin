@@ -4,6 +4,7 @@ use App\Http\Controllers\CarteControllerDocumentFormController;
 use App\Http\Controllers\DemandsController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,4 @@ Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('
 Route::get('/demands', [DemandsController::class, 'display'])->name('api.demands.show');
 Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
 Route::post('/meetings', [MeetingController::class, 'store'])->name('meetings.store');
+Route::get('/meetings/{meeting}/qr-code', [QrCodeController::class, 'show'])->name('meetings.qr-code.show');

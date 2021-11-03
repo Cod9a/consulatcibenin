@@ -7,7 +7,12 @@
         status: null,
         async onSubmit() {
             const url = new URLSearchParams({'reference': this.reference});
-            let response = await fetch(`/api/demands?${url.toString()}`);
+            let response = await fetch(`/api/demands?${url.toString()}`, {
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    'Accept': 'application/json;charset=utf-8',
+                }
+            });
             if (response.ok) {
                 this.demand = await response.json();
                 this.status = true;

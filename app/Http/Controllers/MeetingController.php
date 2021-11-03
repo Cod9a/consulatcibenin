@@ -39,10 +39,10 @@ class MeetingController extends Controller
                 'payment_token' => 'Vous ne pouvez pas etablir plusieurs rendez-vous pour une meme demande',
             ]);
         }
-        Meeting::create([
+        $meeting = Meeting::create([
             'demand_id' => $demand->id,
             'meeting_date' => $request->meeting_date,
         ]);
-        return response()->json([], 201);
+        return response()->json($meeting, 201);
     }
 }

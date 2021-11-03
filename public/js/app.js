@@ -5670,6 +5670,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     errors: {},
     errorPopUp: false,
     successModal: false,
+    qrCode: null,
     timeConfig: {
       meetingLength: 30,
       timeSlots: {
@@ -5776,11 +5777,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       axios.post("".concat(meetingStoreUrl), {
-        meeting_type: this.selectedMeetingType,
         meeting_date: new Date(this.dateSelected.getFullYear(), this.dateSelected.getMonth(), this.dateSelected.getDate(), this.timeSelected.getHours(), this.timeSelected.getMinutes()),
-        transaction_id: this.transactionId
-      }).then(function (_) {
-        return _this2.successModal = true;
+        payment_token: this.transactionId
+      }).then(function (response) {
+        _this2.meeting = response.data;
+        axios.get("/api/meetings/".concat(_this2.meeting.id, "/qr-code")).then(function (response) {
+          _this2.qrCode = response.data;
+          _this2.successModal = true;
+        });
       })["catch"](function (e) {
         if (e.response.status == 422) {
           _this2.errors = e.response.data.errors;

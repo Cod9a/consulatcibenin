@@ -12,6 +12,7 @@ export default (meetingDateUrl, meetingStoreUrl) => ({
     errors: {},
     errorPopUp: false,
     successModal: false,
+    qrCode: null,
     timeConfig: {
         meetingLength: 30,
         timeSlots: {
@@ -114,7 +115,6 @@ export default (meetingDateUrl, meetingStoreUrl) => ({
         }
         axios
             .post(`${meetingStoreUrl}`, {
-                meeting_type: this.selectedMeetingType,
                 meeting_date: new Date(
                     this.dateSelected.getFullYear(),
                     this.dateSelected.getMonth(),
@@ -122,9 +122,13 @@ export default (meetingDateUrl, meetingStoreUrl) => ({
                     this.timeSelected.getHours(),
                     this.timeSelected.getMinutes()
                 ),
-                transaction_id: this.transactionId,
+                payment_token: this.transactionId,
             })
-            .then((_) => (this.successModal = true))
+            .then((response) => {
+                this.meeting = response.data;
+                axios.get(`/api/meetings/${this.meeting.id}/qr-code`)
+                    .then((response) => {this.qrCode = response.data; this.successModal = true})
+            })
             .catch((e) => {
                 if (e.response.status == 422) {
                     this.errors = e.response.data.errors;

@@ -294,5 +294,46 @@
         </div>
       </div>
     </div>
+
+  <x-sucess-modal x-show="successModal">
+    <x-slot name="title"> Rendez-vous cree avec succes </x-slot>
+    <x-slot name="description">
+        <div class="flex flex-col items-center">
+            <div class="bg-gray-50 rounded-full">
+                <img :src="`data:image/png;base64, ${qrCode}`" alt="" class="my-4 mx-auto">
+            </div>
+            <p>
+            Nous vous conseillons de prendre en photo le Qr Code ci-dessus. Il s'agit d'une attestation de votre rendez-vous.
+            </p>
+        </div>
+    </x-slot>
+    <x-slot name="actions">
+      <a
+        href="/"
+        class="
+          w-full
+          inline-flex
+          justify-center
+          rounded-md
+          border border-transparent
+          shadow-sm
+          px-4
+          py-2
+          bg-blue-600
+          text-base
+          font-medium
+          text-white
+          hover:bg-blue-700
+          focus:outline-none
+          focus:ring-2
+          focus:ring-offset-2
+          focus:ring-blue-500
+          sm:ml-3 sm:text-sm
+        "
+      >
+      Revenir à la page d'accueil
+      </a>
+    </x-slot>
+  </x-sucess-modal>
   </section>
 </x-app-layout>
