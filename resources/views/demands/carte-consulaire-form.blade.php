@@ -632,12 +632,43 @@
           Suivant
         </button>
       </div>
-      <button type="submit">Procéder au paiement</button>
-      <button
-        type="button"
-        @click="processPaymentKkpay('Emmanue', 'Yoa', 1, 10000, 'Test')">
-        Test
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white mt-2">
+        Procéder au paiement
       </button>
+
+      <x-sucess-modal x-show="successModal">
+        <x-slot name="title"> Demande créé avec succès </x-slot>
+        <x-slot name="description">
+          Votre demande a été créé avec succès. Les informations supplémentaires
+          vous ont été communiqué au mail sus-mentionné.
+        </x-slot>
+        <x-slot name="actions">
+          <a
+            href="/"
+            class="
+              w-full
+              inline-flex
+              justify-center
+              rounded-md
+              border border-transparent
+              shadow-sm
+              px-4
+              py-2
+              bg-blue-600
+              text-base
+              font-medium
+              text-white
+              hover:bg-blue-700
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-blue-500
+              sm:ml-3 sm:text-sm
+            ">
+            Retourner à l'accueil
+          </a>
+        </x-slot>
+      </x-sucess-modal>
     </form>
   </section>
 </x-app-layout>

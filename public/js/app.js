@@ -5453,6 +5453,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     step: 1,
     nSteps: 4,
     uniqueId: null,
+    successModal: false,
     document: {},
     init: function init() {
       var _this = this;
@@ -5578,7 +5579,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response, nom, prenom, demandId;
+        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -5603,10 +5604,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context2.sent;
 
                 if (response.status >= 200 && response.status <= 299) {
-                  _this2.uniqueId = response.data.payment_token;
-                  nom = response.nom, prenom = response.prenom, demandId = response.demandId;
-
-                  _this2.processPaymentKkpay(nom, prenom, demandId, _this2.document.price, _this2.document.title);
+                  _this2.successModal = true;
                 }
 
                 _context2.next = 12;

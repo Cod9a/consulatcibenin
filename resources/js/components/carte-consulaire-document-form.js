@@ -4,6 +4,7 @@ export default (documentId) => ({
     step: 1,
     nSteps: 4,
     uniqueId: null,
+    successModal: false,
     document: {},
     async init() {
         let response = await axios.get(`/api/documents/${documentId}`);
@@ -113,9 +114,7 @@ export default (documentId) => ({
                     },
                 });
             if (response.status >= 200 && response.status <= 299) {
-                this.uniqueId = response.data.payment_token;
-                let {nom, prenom, demandId} = response;
-                this.processPaymentKkpay(nom, prenom, demandId, this.document.price, this.document.title);
+                this.successModal = true;
             }
         } catch (e) {
             if (e.response.status === 422) {

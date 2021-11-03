@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarteConsulaireFormRequest;
+use App\Mail\DemandCreated;
 use App\Models\Demand;
 use App\Models\Document;
 use App\Models\DocumentForm;
@@ -11,13 +12,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Kkiapay\Kkiapay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CarteControllerDocumentFormController extends Controller
 {
     public function store(CarteConsulaireFormRequest $request, Document $document) {
         $demand = Demand::create([
             'document_id' => $document->id,
-            'status' => 'invalid',
+            'status' => 'en-attente',
             'payment_token' => Str::uuid(),
         ]);
         $name = $request->file('photo')->getClientOriginalName();
@@ -29,6 +31,7 @@ class CarteControllerDocumentFormController extends Controller
             'demand_id' => $demand->id,
         ]);
         $documentForm = DocumentForm::create(Arr::add($request->except('photo'), 'demand_id', $demand->id));
+        Mail::to($documentForm->email)->send(new DemandCreated($demand));
         return response()->json(['payment_token' => $demand->payment_token, 'nom' => $documentForm->last_name, 'prenom' => $documentForm->first_name, 'demandId' => $demand->id], 201);
     }
 
