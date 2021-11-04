@@ -24,4 +24,4 @@ Route::get('/demand-status', [DemandsController::class, 'show'])->name('demands.
 Route::get('/documents/{document}/demands/create', [DocumentDemandsController::class, 'create'])->name('documents.demands.create');
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
 Route::get('/payment', [CarteControllerDocumentFormController::class, 'payment'])->name('payment.callback');
-Route::get('/meeting/payment', [MeetingController::class, 'payment'])->name('payment.callback');
+Route::get('/meeting/payment', [MeetingController::class, 'payment'])->name('meeting.payment.callback');

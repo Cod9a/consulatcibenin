@@ -40,21 +40,21 @@ class CarteControllerDocumentFormController extends Controller
         $kkiapay = new Kkiapay("206caa702ce811ecb30d13c7d805295f", "tpk_206caa722ce811ecb30d13c7d805295f", "tsk_206cd1802ce811ecb30d13c7d805295f", $sandbox = true);
         $transaction =  $kkiapay->verifyTransaction($request->transaction_id);
         if (!$transaction) {
-            return redirect()->route('demands.index')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 1');
+            return redirect()->route('/')->with('errors', 'Le paiement a échoué veuilez réesayer');
         }
 
         if ($transaction->status == 'TRANSACTION_NOT_FOUND') {
-            return redirect()->route('demands.index')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 2');
+            return redirect()->route('/')->with('errors', 'Transaction erronée');
         }
 
         if ($transaction->status != 'SUCCESS') {
-            return redirect()->route('demands.index')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 3');
+            return redirect()->route('/')->with('errors', 'Transaction erronée');
         }
+
         $demand = Demand::where('payment_token', $transaction->state->uniqueId)->firstOrFail();
         $amount = $demand->document->price;
-
         if ($transaction->amount < $amount) {
-            return redirect()->route('demands.index')->with('errors', 'Erreur ! Le montant payé est inférieur au montant dû');
+            return redirect()->route('/')->with('errors', 'Erreur ! Le montant payé est inférieur au montant dû');
         }
 
         $demand->status = 'en-attente';

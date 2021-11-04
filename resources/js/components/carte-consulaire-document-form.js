@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default (documentId) => ({
+export default (documentId, callbackUrl) => ({
     step: 1,
     nSteps: 4,
     uniqueId: null,
@@ -104,7 +104,7 @@ export default (documentId) => ({
         openKkiapayWidget({
             amount: amountTotal,
             position: 'center',
-            callback: 'http://localhost:8000/payment',
+            callback: `${callbackUrl}`,
             theme: 'green',
             sandbox: 'true',
             key: '206caa702ce811ecb30d13c7d805295f',

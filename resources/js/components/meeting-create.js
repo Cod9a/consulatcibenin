@@ -1,4 +1,4 @@
-export default (meetingDateUrl, meetingStoreUrl) => ({
+export default (meetingDateUrl, meetingStoreUrl, callbackUrl) => ({
     step: 0,
     meetingTypes: [
         "Empreintes biometriques & signature electronique",
@@ -21,7 +21,7 @@ export default (meetingDateUrl, meetingStoreUrl) => ({
         openKkiapayWidget({
             amount: amountTotal,
             position: 'center',
-            callback: 'http://localhost:8000/meeting/payment',
+            callback: callbackUrl,
             theme: 'green',
             sandbox: 'true',
             key: '206caa702ce811ecb30d13c7d805295f',

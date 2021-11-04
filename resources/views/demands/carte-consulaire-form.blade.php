@@ -1,7 +1,7 @@
 <x-app-layout>
   <section
     class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8"
-    x-data="carteConsulaireDocumentForm({{ $document->id}})"
+    x-data="carteConsulaireDocumentForm({{ $document->id}}, `{{ route('payment.callback') }}`)"
     @photo-updated.window="fields.photo = $event.detail">
     <h3 class="font-medium text-2xl">
       Formulaire de création d'une Carte Consulaire Biométrique
