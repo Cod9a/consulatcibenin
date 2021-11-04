@@ -14,40 +14,40 @@ class CreateDocumentFormsTable extends Migration
     public function up()
     {
         Schema::create('document_forms', function (Blueprint $table) {
-            $table->id();
+            $table->id()->nullable();
             $table->string('last_name');
             $table->string('first_name');
-            $table->date('birthdate');
-            $table->string('origin_country');
-            $table->string('origin_commune');
-            $table->string('job');
-            $table->string('phone');
-            $table->string('phone_alt');
+            $table->date('birthdate')->nullable();
+            $table->string('origin_country')->nullable();
+            $table->string('origin_commune')->nullable();
+            $table->string('job')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('phone_alt')->nullable();
             $table->string('spouse_name')->nullable();
-            $table->enum('genre', ['male', 'female']);
+            $table->enum('genre', ['male', 'female'])->nullable();
             $table->string('diploma')->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('mailbox')->nullable();
-            $table->string('father_first_name');
-            $table->string('mother_first_name');
-            $table->string('father_last_name');
-            $table->string('mother_last_name');
-            $table->string('ethnic_grp');
-            $table->date('arrival_date_ci');
-            $table->string('residence_commune');
-            $table->string('ravip_number');
-            $table->enum('marital_situation', ['single', 'maried']);
-            $table->unsignedInteger('n_children')->default(0);
-            $table->string('eye_color');
-            $table->string('hair_color');
-            $table->string('complexion_color');
-            $table->longText('other_signs');
-            $table->unsignedInteger('height');
+            $table->string('father_first_name')->nullable();
+            $table->string('mother_first_name')->nullable();
+            $table->string('father_last_name')->nullable();
+            $table->string('mother_last_name')->nullable();
+            $table->string('ethnic_grp')->nullable();
+            $table->date('arrival_date_ci')->nullable();
+            $table->string('residence_commune')->nullable();
+            $table->string('ravip_number')->nullable();
+            $table->enum('marital_situation', ['single', 'maried'])->nullable();
+            $table->unsignedInteger('n_children')->default(0)->nullable();
+            $table->string('eye_color')->nullable();
+            $table->string('hair_color')->nullable();
+            $table->string('complexion_color')->nullable();
+            $table->longText('other_signs')->nullable();
+            $table->unsignedInteger('height')->nullable();
 
-            $table->string('benin_contact_fullname');
-            $table->string('benin_contact_phone');
-            $table->string('ci_contact_fullname');
-            $table->string('ci_contact_phone');
+            $table->string('benin_contact_fullname')->nullable();
+            $table->string('benin_contact_phone')->nullable();
+            $table->string('ci_contact_fullname')->nullable();
+            $table->string('ci_contact_phone')->nullable();
 
             $table->foreignId('demand_id')->constrained()->onDelete('no action')->onUpdate('cascade');
             $table->timestamps();
