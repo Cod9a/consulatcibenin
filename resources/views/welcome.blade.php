@@ -55,7 +55,8 @@
             no suspicit quarendum. At nam minimum ponderum. Est audiam animal
             molestiae te. Ex duo eripuit mentitum.
           </p>
-          <button
+          <a
+            href="{{ route('demands.index') }}"
             class="
               inline-flex
               items-center
@@ -79,7 +80,7 @@
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                   clip-rule="evenodd"></path></svg
             ></span>
-          </button>
+          </a>
         </div>
       </div>
       <div
@@ -156,7 +157,8 @@
                 mei et quod enim mnesarchum, habeo affert laoreet sea ei.
               </li>
             </ul>
-            <button
+            <a
+              href="{{ route('demands.index') }}"
               class="
                 px-5
                 py-3
@@ -167,7 +169,7 @@
                 mt-4
               ">
               Obtenir la <span class="text-amber-300">Carte Consulaire</span>
-            </button>
+            </a>
           </div>
         </div>
       </section>

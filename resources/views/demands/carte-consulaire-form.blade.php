@@ -83,7 +83,7 @@
             autocomplete="country-name" />
           <span
             class="text-red-500 text-sm"
-            x-text="fieldErrors.first_name"></span>
+            x-text="fieldErrors.origin_country"></span>
         </div>
         <div class="flex flex-col">
           <label for="origin-commune">Commune de naissance</label>
@@ -121,8 +121,7 @@
             :value="old('diploma')"
             name="diploma"
             x-model="fields.diploma"
-            required
-            autocomplete="organization-title" />
+            required />
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.diploma"></span>
@@ -177,9 +176,7 @@
               <label for="female">Féminin</label>
             </div>
           </div>
-          <span
-            class="text-red-500 text-sm"
-            x-text="fieldErrors.spouse_name"></span>
+          <span class="text-red-500 text-sm" x-text="fieldErrors.genre"></span>
         </div>
         <div class="flex flex-col">
           <label for="spouse-name">Nom de votre époux</label>
@@ -370,7 +367,9 @@
             name="n_children"
             x-model="fields.n_children"
             required />
-          <span class="text-red-500 text-sm" x-text="fieldErrors.email"></span>
+          <span
+            class="text-red-500 text-sm"
+            x-text="fieldErrors.n_children"></span>
         </div>
         <div class="flex flex-col">
           <label for="ravip-number">Numéro d'enrôlement Ravip</label>
@@ -616,6 +615,11 @@
             class="text-red-500 text-sm"
             x-text="fieldErrors.other_signs"></span>
         </div>
+        <div>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white mt-2">
+            Procéder au paiement
+          </button>
+        </div>
       </fieldset>
 
       <div class="flex space-x-4 mt-12">
@@ -632,9 +636,6 @@
           Suivant
         </button>
       </div>
-      <button type="submit" class="px-4 py-2 bg-blue-500 text-white mt-2">
-        Procéder au paiement
-      </button>
 
       <x-sucess-modal x-show="successModal">
         <x-slot name="title"> Demande créé avec succès </x-slot>
