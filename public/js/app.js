@@ -5450,7 +5450,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (documentId) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (documentId, callbackUrl) {
   return {
     step: 1,
     nSteps: 4,
@@ -5592,7 +5592,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       openKkiapayWidget({
         amount: amountTotal,
         position: 'center',
-        callback: 'http://localhost:8000/payment',
+        callback: "".concat(callbackUrl),
         theme: 'green',
         sandbox: 'true',
         key: '206caa702ce811ecb30d13c7d805295f',
@@ -5688,7 +5688,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (meetingDateUrl, meetingStoreUrl) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (meetingDateUrl, meetingStoreUrl, callbackUrl) {
   return {
     step: 0,
     meetingTypes: ["Empreintes biometriques & signature electronique", "Retrait de documents"],
@@ -5712,7 +5712,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       openKkiapayWidget({
         amount: amountTotal,
         position: 'center',
-        callback: 'http://localhost:8000/meeting/payment',
+        callback: callbackUrl,
         theme: 'green',
         sandbox: 'true',
         key: '206caa702ce811ecb30d13c7d805295f',
