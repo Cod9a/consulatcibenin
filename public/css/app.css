@@ -900,6 +900,10 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(250, 250, 250, var(--tw-bg-opacity));
 }
+.bg-red-500{
+	--tw-bg-opacity: 1;
+	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
+}
 .bg-opacity-75{
 	--tw-bg-opacity: 0.75;
 }
@@ -1340,6 +1344,10 @@ video {
 .active\:text-gray-800:active{
 	--tw-text-opacity: 1;
 	color: rgba(39, 39, 42, var(--tw-text-opacity));
+}
+.disabled\:bg-gray-500:disabled{
+	--tw-bg-opacity: 1;
+	background-color: rgba(113, 113, 122, var(--tw-bg-opacity));
 }
 .disabled\:opacity-25:disabled{
 	opacity: 0.25;

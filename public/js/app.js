@@ -5433,13 +5433,15 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -5455,6 +5457,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     uniqueId: null,
     successModal: false,
     document: {},
+    visited: [true, false, false, false],
+    errors: [false, false, false, false],
     init: function init() {
       var _this = this;
 
@@ -5526,7 +5530,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'job': '',
       'phone_alt': '',
       'email': '',
-      'genre': '',
+      'genre': 'female',
       'mailbox': '',
       'spouse_name': '',
       'diploma': '',
@@ -5536,7 +5540,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'mother_last_name': '',
       'arrival_date_ci': '',
       'residence_commune': '',
-      'marital_situation': '',
+      'marital_situation': 'couple',
       'n_children': 0,
       'ravip_number': '',
       'benin_contact_fullname': '',
@@ -5550,9 +5554,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'height': 0
     },
     nextStep: function nextStep() {
-      step++;
+      if (this.validateFields()) {
+        this.visited[this.step++] = true;
+      }
     },
-    openWidget: function openWidget() {},
+    validateFields: function validateFields() {
+      var value = true;
+      var result = this.$refs.form.querySelectorAll('fieldset');
+      var fields = result[this.step - 1].querySelectorAll('input[required]');
+
+      var _iterator = _createForOfIteratorHelper(fields),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var f = _step.value;
+
+          if (f.value === '' || f.value === undefined || f.value === null) {
+            this.fieldErrors[f.getAttribute('name')] = "Le champs ".concat(f.getAttribute('name').replace('_', ' '), " est obligatoire");
+            value = false;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return value;
+    },
     processPaymentKkpay: function processPaymentKkpay(demandId, amountTotal, reason) {
       var data = {
         uniqueId: this.uniqueId,
@@ -5574,7 +5604,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response;
+        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response, _i2, _Object$entries2, _Object$entries2$_i, _key, _, item, fieldset, _value;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -5613,6 +5643,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (_context2.t0.response.status === 422) {
                   _this2.fieldErrors = _context2.t0.response.data.errors;
+
+                  for (_i2 = 0, _Object$entries2 = Object.entries(_this2.fieldErrors); _i2 < _Object$entries2.length; _i2++) {
+                    _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2), _key = _Object$entries2$_i[0], _ = _Object$entries2$_i[1];
+                    item = document.querySelector("[name=".concat(_key, "]"));
+                    fieldset = item.closest('fieldset');
+
+                    if (fieldset) {
+                      _value = fieldset.getAttribute("data-step");
+                      _this2.errors[_value - 1] = true;
+                    }
+                  }
                 }
 
               case 12:

@@ -13,9 +13,10 @@
           :class="i === nSteps ? 'relative flex-shrink-0' : 'relative flex-grow'">
           <button
             :class="
-            i === nSteps ?  'w-6 h-6 bg-blue-500 inline-flex items-center justify-center rounded-full font-semibold text-white ' : 'w-6 h-6 bg-blue-500 inline-flex items-center justify-center rounded-full font-semibold text-white after:absolute after:w-full after:h-px after:bg-black after:left-7' "
+            i === nSteps ?  `w-6 h-6 disabled:bg-gray-500 ${!errors[i - 1] ? 'bg-blue-500' : 'bg-red-500'} inline-flex items-center justify-center rounded-full font-semibold text-white ` : `w-6 h-6 disabled:bg-gray-500 ${!errors[i - 1] ? 'bg-blue-500' : 'bg-red-500'} inline-flex items-center justify-center rounded-full font-semibold text-white after:absolute after:w-full after:h-px after:bg-black after:left-7` "
             x-text="i"
-            @click="step = i"></button>
+            @click="step = i"
+            :disabled="!visited[i - 1]"></button>
         </div>
       </template>
     </div>
@@ -23,7 +24,8 @@
       <fieldset
         x-cloak
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-        x-show="step === 1">
+        x-show="step === 1"
+        data-step="1">
         <div class="flex flex-col">
           <label for="last-name">Nom</label>
           <x-input
@@ -148,7 +150,6 @@
             :value="old('phone_alt')"
             name="phone_alt"
             x-model="fields.phone_alt"
-            required
             autocomplete="tel" />
           <span
             class="text-red-500 text-sm"
@@ -217,8 +218,7 @@
             type="text"
             :value="old('mailbox')"
             name="mailbox"
-            x-model="fields.mailbox"
-            required />
+            x-model="fields.mailbox" />
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.mailbox"></span>
@@ -228,7 +228,8 @@
       <fieldset
         x-cloak
         class="grid grid-cols-1 md:grid-cols-2 gap-5"
-        x-show="step === 2">
+        x-show="step === 2"
+        data-step="2">
         <div class="flex flex-col">
           <label for="father-last-name">Nom du père</label>
           <x-input
@@ -340,6 +341,7 @@
                 id="single"
                 name="marital_situationformData"
                 x-model="fields.marital_situation"
+                checked
                 value="single" />
               <label for="single">Célibataire</label>
             </div>
@@ -389,7 +391,8 @@
       <fieldset
         x-cloak
         class="grid grid-cols-1 md:grid-cols-2 gap-5"
-        x-show="step === 3">
+        x-show="step === 3"
+        data-step="3">
         <div class="flex flex-col">
           <label for="benin-contact-fullname">Contact au Bénin</label>
           <x-input
@@ -451,7 +454,8 @@
       <fieldset
         x-cloak
         class="grid grid-cols-1 md:grid-cols-2 gap-5"
-        x-show="step === 4">
+        x-show="step === 4"
+        data-step="4">
         <div
           x-data="{photoName: null, photoPreview: null, photo: null}"
           class="row-span-1 sm:row-span-2"
@@ -608,7 +612,6 @@
             type="text"
             name="other_signs"
             x-model="fields.other_signs"
-            required
             >{{ old('other_signs') }}</x-textarea
           >
           <span
@@ -625,13 +628,13 @@
       <div class="flex space-x-4 mt-12">
         <button
           class="bg-amber-500 px-3 py-2 text-white disabled:opacity-50"
-          @click="step--"
+          @click.prevent="step--"
           :disabled="step <= 1">
           Précédent
         </button>
         <button
           class="bg-amber-500 px-3 py-2 text-white disabled:opacity-50"
-          @click="step++"
+          @click.prevent="nextStep()"
           :disabled="step >= 4">
           Suivant
         </button>
