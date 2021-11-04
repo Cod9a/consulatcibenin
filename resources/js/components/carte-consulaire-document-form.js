@@ -82,24 +82,20 @@ export default (documentId) => ({
     nextStep() {
         step++;
     },
-    processPaymentKkpay(firstName, lastName, demandId, amountTotal, reason) {
-        const data = { uniqueId: this.uniqueId, demandId: demandId, }
+    openWidget() {
+    },
+    processPaymentKkpay(demandId, amountTotal, reason) {
+        const data = { uniqueId: this.uniqueId, demandId: demandId }
+        console.log(data);
         openKkiapayWidget({
             amount: amountTotal,
             position: 'center',
-            callback: `/api/payment`,
-            data,
+            callback: 'http://localhost:8000/payment',
             theme: 'green',
-            reason,
             sandbox: 'true',
-            paymentmethod: '',
-            name: lastName + ' ' + firstName,
-            email,
-            key: '206caa702ce811ecb30d13c7d805295f'
-        });
-        addSuccessListener(response => {
-            console.log('Voila ' + response);
-            response.transactionId;
+            key: '206caa702ce811ecb30d13c7d805295f',
+            data,
+            reason
         });
     },
     async onSubmit() {
@@ -114,7 +110,8 @@ export default (documentId) => ({
                     },
                 });
             if (response.status >= 200 && response.status <= 299) {
-                this.successModal = true;
+                this.uniqueId = response.data.payment_token;
+                this.processPaymentKkpay(response.data.demandId, this.document.price, this.document.title);
             }
         } catch (e) {
             if (e.response.status === 422) {

@@ -5552,27 +5552,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     nextStep: function nextStep() {
       step++;
     },
-    processPaymentKkpay: function processPaymentKkpay(firstName, lastName, demandId, amountTotal, reason) {
+    openWidget: function openWidget() {},
+    processPaymentKkpay: function processPaymentKkpay(demandId, amountTotal, reason) {
       var data = {
         uniqueId: this.uniqueId,
         demandId: demandId
       };
+      console.log(data);
       openKkiapayWidget({
         amount: amountTotal,
         position: 'center',
-        callback: "/api/payment",
-        data: data,
+        callback: 'http://localhost:8000/payment',
         theme: 'green',
-        reason: reason,
         sandbox: 'true',
-        paymentmethod: '',
-        name: lastName + ' ' + firstName,
-        email: email,
-        key: '206caa702ce811ecb30d13c7d805295f'
-      });
-      addSuccessListener(function (response) {
-        console.log('Voila ' + response);
-        response.transactionId;
+        key: '206caa702ce811ecb30d13c7d805295f',
+        data: data,
+        reason: reason
       });
     },
     onSubmit: function onSubmit() {
@@ -5604,7 +5599,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context2.sent;
 
                 if (response.status >= 200 && response.status <= 299) {
-                  _this2.successModal = true;
+                  _this2.uniqueId = response.data.payment_token;
+
+                  _this2.processPaymentKkpay(response.data.demandId, _this2.document.price, _this2.document.title);
                 }
 
                 _context2.next = 12;
@@ -5646,12 +5643,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -5669,125 +5660,70 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     errorPopUp: false,
     successModal: false,
     qrCode: null,
-    timeConfig: {
-      meetingLength: 30,
-      timeSlots: {
-        1: [["2021-10-07T07:00:00.000Z", "2021-10-07T11:00:00.000Z"], ["2021-10-07T13:30:00.000Z", "2021-10-07T16:00:00.000Z"]],
-        2: [["2021-10-07T07:00:00.000Z", "2021-10-07T11:00:00.000Z"], ["2021-10-07T13:30:00.000Z", "2021-10-07T16:00:00.000Z"]],
-        3: [["2021-10-07T07:00:00.000Z", "2021-10-07T11:00:00.000Z"], ["2021-10-07T13:30:00.000Z", "2021-10-07T16:00:00.000Z"]],
-        4: [["2021-10-07T07:00:00.000Z", "2021-10-07T11:00:00.000Z"], ["2021-10-07T13:30:00.000Z", "2021-10-07T16:00:00.000Z"]],
-        5: [["2021-10-07T07:00:00.000Z", "2021-10-07T11:00:00.000Z"], ["2021-10-07T13:30:00.000Z", "2021-10-07T16:00:00.000Z"]],
-        6: [["2021-10-07T07:00:00.000Z", "2021-10-07T13:00:00.000Z"]]
-      }
-    },
     setSelectedDate: function setSelectedDate(date) {
-      this.timeSelected = null;
       this.dateSelected = date;
-      this.generateMeetingsForDate(date);
     },
-    mergeTimeAndDate: function mergeTimeAndDate(dateDate, timeDate) {
-      return new Date(dateDate.getFullYear(), dateDate.getMonth(), dateDate.getDate(), timeDate.getHours(), timeDate.getMinutes());
+    processPaymentKkpay: function processPaymentKkpay(demandId, amountTotal, reason) {
+      var data = {
+        uniqueId: this.uniqueId,
+        demandId: demandId
+      };
+      openKkiapayWidget({
+        amount: amountTotal,
+        position: 'center',
+        callback: 'http://localhost:8000/meeting/payment',
+        theme: 'green',
+        sandbox: 'true',
+        key: '206caa702ce811ecb30d13c7d805295f',
+        data: data,
+        reason: reason
+      });
     },
-    generateMeetingsForDate: function generateMeetingsForDate(date) {
+    sendInformations: function sendInformations() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var slots, response, occupiedSlots, _iterator, _step, timeSlot, currentDate, endingDate, occupied;
-
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                slots = [];
-
-                if (date.getDay() in _this.timeConfig.timeSlots) {
-                  _context.next = 4;
-                  break;
-                }
-
-                _this.timeSlots = [];
-                return _context.abrupt("return");
-
-              case 4:
-                _context.next = 6;
-                return axios.get("".concat(meetingDateUrl, "?date=").concat(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()));
-
-              case 6:
-                response = _context.sent;
-                occupiedSlots = response.data.data.map(function (item) {
-                  return new Date(item).getTime();
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.post("".concat(meetingStoreUrl), {
+                  meeting_date: _this.dateSelected,
+                  payment_token: _this.transactionId
                 });
-                _iterator = _createForOfIteratorHelper(_this.timeConfig.timeSlots[date.getDay()]);
 
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    timeSlot = _step.value;
-                    currentDate = _this.mergeTimeAndDate(date, new Date(timeSlot[0]));
-                    endingDate = _this.mergeTimeAndDate(date, new Date(timeSlot[1]));
+              case 3:
+                response = _context.sent;
 
-                    while (currentDate < endingDate) {
-                      occupied = occupiedSlots.indexOf(currentDate.getTime()) !== -1;
-                      slots.push({
-                        date: currentDate,
-                        occupied: occupied
-                      });
-                      currentDate = new Date(currentDate.getTime() + _this.timeConfig.meetingLength * 60000);
-                    }
-                  }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
+                if (response.status >= 200 && response.status < 300) {
+                  _this.meeting = response.data;
+                  _this.uniqueId = _this.meeting.id;
+
+                  _this.processPaymentKkpay(response.data.id, 2000, 'Rendez-vous');
                 }
 
-                _this.timeSlots = slots;
+                _context.next = 11;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0);
+
+                if (_context.t0.response && _context.t0.response.status == 422) {
+                  _this.errors = _context.t0.response.data.errors;
+                }
 
               case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[0, 7]]);
       }))();
-    },
-    selectMeetingType: function selectMeetingType(meetingType) {
-      this.selectedMeetingType = meetingType;
-      this.nextStep();
-    },
-    nextStep: function nextStep() {
-      if (this.step < 2) {
-        this.step += 1;
-      }
-    },
-    prevStep: function prevStep() {
-      if (this.step > 0) {
-        this.step -= 1;
-      }
-    },
-    sendInformations: function sendInformations() {
-      var _this2 = this;
-
-      if (this.timeSelected === null) {
-        this.$dispatch("notify", {
-          message: "Choisissez une heure de rendez-vous"
-        });
-        return;
-      }
-
-      axios.post("".concat(meetingStoreUrl), {
-        meeting_date: new Date(this.dateSelected.getFullYear(), this.dateSelected.getMonth(), this.dateSelected.getDate(), this.timeSelected.getHours(), this.timeSelected.getMinutes()),
-        payment_token: this.transactionId
-      }).then(function (response) {
-        _this2.meeting = response.data;
-        axios.get("/api/meetings/".concat(_this2.meeting.id, "/qr-code")).then(function (response) {
-          _this2.qrCode = response.data;
-          _this2.successModal = true;
-        });
-      })["catch"](function (e) {
-        if (e.response.status == 422) {
-          _this2.errors = e.response.data.errors;
-        }
-      });
     }
   };
 });

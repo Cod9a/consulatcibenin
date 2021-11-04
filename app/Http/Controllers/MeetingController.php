@@ -6,6 +6,8 @@ use App\Models\Demand;
 use Illuminate\Http\Request;
 use App\Models\Meeting;
 use Illuminate\Validation\ValidationException;
+use Kkiapay\Kkiapay;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class MeetingController extends Controller
 {
@@ -49,5 +51,48 @@ class MeetingController extends Controller
             'meeting_date' => $request->meeting_date,
         ]);
         return response()->json($meeting, 201);
+    }
+
+    public function payment(Request $request)
+    {
+        $kkiapay = new Kkiapay("206caa702ce811ecb30d13c7d805295f", "tpk_206caa722ce811ecb30d13c7d805295f", "tsk_206cd1802ce811ecb30d13c7d805295f", $sandbox = true);
+        $transaction =  $kkiapay->verifyTransaction($request->transaction_id);
+        if (!$transaction) {
+            return redirect()->route('/')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 1');
+        }
+
+        if ($transaction->status == 'TRANSACTION_NOT_FOUND') {
+            return redirect()->route('/')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 2');
+        }
+
+        if ($transaction->status != 'SUCCESS') {
+            return redirect()->route('/')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 3');
+        }
+        $meeting = Meeting::findOrFail($transaction->state->uniqueId);
+        $amount = 2000;
+
+        if ($transaction->amount < $amount) {
+            return redirect()->route('/')->with('errors', 'Erreur ! Le montant payé est inférieur au montant dû');
+        }
+
+        $meeting->save();
+        $data = [
+            "meeting_id" => $meeting->id,
+            "meeting_date" => $meeting->meeting_date,
+            "meeting_deleted" => $meeting->deleted,
+        ];
+        $qrCode = base64_encode(QrCode::format('png')->size(150)->generate(json_encode($data)));
+        return redirect('/')->with('success', 
+            "
+                <div class='flex flex-col items-center'>
+                    <div class='bg-gray-50 rounded-full'>
+                        <img src='data:image/png;base64, ${qrCode}' alt='' class='my-4 mx-auto'>
+                    </div>
+                    <p>
+                    Nous vous conseillons de prendre en photo le Qr Code ci-dessus. Il s'agit d'une attestation de votre rendez-vous.
+                    </p>
+                </div>
+            "
+        );
     }
 }

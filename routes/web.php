@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarteControllerDocumentFormController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemandsController;
 use App\Http\Controllers\DocumentDemandsController;
@@ -22,3 +23,5 @@ Route::get('/demands', [DemandsController::class, 'index'])->name('demands.index
 Route::get('/demand-status', [DemandsController::class, 'show'])->name('demands.show');
 Route::get('/documents/{document}/demands/create', [DocumentDemandsController::class, 'create'])->name('documents.demands.create');
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+Route::get('/payment', [CarteControllerDocumentFormController::class, 'payment'])->name('payment.callback');
+Route::get('/meeting/payment', [MeetingController::class, 'payment'])->name('payment.callback');

@@ -24,7 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/documents/{document}/demands', [CarteControllerDocumentFormController::class, 'store'])->name('carte-consulaire.store');
-Route::get('/payment', [CarteControllerDocumentFormController::class, 'payment'])->name('payment.callback');
 Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('documents.show');
 Route::get('/demands', [DemandsController::class, 'display'])->name('api.demands.show');
 Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');

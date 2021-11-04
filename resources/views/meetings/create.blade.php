@@ -1,5 +1,5 @@
 <x-app-layout>
-  <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8" x-data="meetingCreate(`{{ route('meetings.index') }}`,`{{ route('meetings.store') }}`)" x-init="generateMeetingsForDate(new Date())">
+  <section class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8" x-data="meetingCreate(`{{ route('meetings.index') }}`,`{{ route('meetings.store') }}`)">
   <div
     class="
       max-w-7xl
@@ -126,7 +126,7 @@
             "
             >2</span
           >
-          <h3>Choisir la date et l'heure du rendez-vous</h3>
+          <h3>Choisir la date du rendez-vous</h3>
         </button>
     <div class="flex flex-col">
         <div
@@ -216,47 +216,6 @@
                     :class="isSelected(date) ? 'bg-blue-500 text-white': ''"
                     class="cursor-pointer text-center rounded-full"
                   ></span>
-                </template>
-              </div>
-            </div>
-            <div
-              class="
-                sm:ml-4 sm:max-w-none
-                max-w-full
-                sm:overflow-x-visible
-                overflow-x-scroll
-                py-2
-              "
-            >
-              <div
-                class="
-                  sm:grid sm:grid-flow-col sm:grid-rows-6 sm:gap-x-5 sm:gap-y-1
-                  flex
-                  space-x-3
-                  sm:space-x-0
-                "
-              >
-                <template x-for="slot in timeSlots">
-                  <button
-                    @click.prevent="timeSelected = slot.date"
-                    x-text="(slot.date.getHours() < 10 ? '0' + slot.date.getHours() : slot.date.getHours()) + ':' + (slot.date.getMinutes() < 10 ? '0' + slot.date.getMinutes() : slot.date.getMinutes())"
-                    class="
-                      disabled:opacity-50
-                      rounded
-                      py-1
-                      px-2
-                      border border-gray-600
-                      text-gray-600
-                      hover:text-gray-900 hover:border-gray-900
-                      transition
-                      ease-in-out
-                      duration-300
-                      cursor-pointer
-                      text-center
-                    "
-                    :class="(timeSelected !== null && timeSelected.getHours() == slot.date.getHours() && timeSelected.getMinutes() == slot.date.getMinutes()) ? 'bg-white border-white shadow' : ''"
-                    :disabled="slot.occupied"
-                  ></button>
                 </template>
               </div>
             </div>

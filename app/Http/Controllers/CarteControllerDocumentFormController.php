@@ -19,7 +19,7 @@ class CarteControllerDocumentFormController extends Controller
     public function store(CarteConsulaireFormRequest $request, Document $document) {
         $demand = Demand::create([
             'document_id' => $document->id,
-            'status' => 'en-attente',
+            'status' => 'invalid',
             'payment_token' => Str::uuid(),
         ]);
         $name = $request->file('photo')->getClientOriginalName();
@@ -51,14 +51,15 @@ class CarteControllerDocumentFormController extends Controller
             return redirect()->route('demands.index')->with('errors', 'Nous avons un probleme. Veuillez reessayer plus tard. 3');
         }
         $demand = Demand::where('payment_token', $transaction->state->uniqueId)->firstOrFail();
-        $amount = $demand->document->prix;
+        $amount = $demand->document->price;
 
         if ($transaction->amount < $amount) {
             return redirect()->route('demands.index')->with('errors', 'Erreur ! Le montant payé est inférieur au montant dû');
         }
 
+        $demand->status = 'en-attente';
         $demand->transaction_id = $request->transaction_id;
         $demand->save();
-        return redirect()->route('demands.index');
+        return redirect('/')->with('success', 'Votre demande a été créée avec succès. Voici le code de cette dernière: "<strong>'. $demand->payment_token. '</strong>". Il vous permettra de suivre l\'avancement du traitement de votre demande.');
     }
 }
