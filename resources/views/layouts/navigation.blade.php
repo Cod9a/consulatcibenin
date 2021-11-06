@@ -12,7 +12,7 @@
     justify-between
   "
   x-data="{open: false}">
-  <a href="/" class="text-2xl text-amber-600 font-bold">LOGO</a>
+  <x-application-logo></x-application-logo>
 
   <button
     class="
