@@ -20,7 +20,7 @@ class CarteControllerDocumentFormController extends Controller
         $demand = Demand::create([
             'document_id' => $document->id,
             'status' => 'invalid',
-            'payment_token' => Str::uuid(),
+            'payment_token' => Str::random(6),
         ]);
         $name = $request->file('photo')->getClientOriginalName();
         $path = $request->file('photo')->store('public/enclosed');
