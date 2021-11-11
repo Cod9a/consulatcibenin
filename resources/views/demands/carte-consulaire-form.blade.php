@@ -478,13 +478,17 @@
 
           <label for="photo">Photo</label>
 
-          <!-- Current Profile Photo -->
           <div class="mt-2" x-show="photoPreview">
-            <img
-              src=""
-              alt=""
-              class="rounded-full h-20 w-20 object-cover object-center"
-              x-bind:style="'background-image: url(\'' + photoPreview + '\');'" />
+            <span
+              class="
+                block
+                rounded-full
+                w-20
+                h-20
+                bg-cover bg-no-repeat bg-center
+              "
+              x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+            </span>
           </div>
 
           <!-- New Profile Photo Preview -->
