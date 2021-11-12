@@ -11,7 +11,7 @@
   <div
     class="
       flex
-      items-end
+      items-center
       justify-center
       min-h-screen
       pt-4
@@ -39,8 +39,8 @@
     <div
       class="
         inline-block
-        align-bottom
         bg-white
+        align-middle
         rounded-lg
         text-left
         overflow-hidden
