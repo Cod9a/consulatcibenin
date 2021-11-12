@@ -652,7 +652,7 @@
         </x-slot>
         <x-slot name="actions">
           <a
-            href="/"
+            href="{{ route('demands.show') }}"
             class="
               w-full
               inline-flex
@@ -673,7 +673,7 @@
               focus:ring-blue-500
               sm:ml-3 sm:text-sm
             ">
-            Retourner à l'accueil
+              Consulter la demande
           </a>
         </x-slot>
       </x-sucess-modal>
