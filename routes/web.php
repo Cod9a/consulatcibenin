@@ -25,3 +25,4 @@ Route::get('/documents/{document}/demands/create', [DocumentDemandsController::c
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
 Route::get('/payment', [CarteControllerDocumentFormController::class, 'payment'])->name('payment.callback');
 Route::get('/meeting/payment', [MeetingController::class, 'payment'])->name('meeting.payment.callback');
+Route::view('test', 'test');

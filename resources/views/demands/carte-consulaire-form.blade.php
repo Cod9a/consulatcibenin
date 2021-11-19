@@ -74,15 +74,11 @@
         </div>
         <div class="flex flex-col">
           <label for="origin-country">Pays de naissance</label>
-          <x-input
+          <x-country-input 
             :error="$errors->has('origin_country')"
             id="origin-country"
-            type="text"
-            :value="old('origin_country')"
-            name="origin_country"
             x-model="fields.origin_country"
-            required
-            autocomplete="country-name" />
+          />
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.origin_country"></span>
@@ -479,6 +475,7 @@
             " />
 
           <label for="photo">Photo</label>
+          <span class="mt-1 text-sm font-medium tracking wide block text-gray-500 mb-2">Assurez-vous que votre photo est au format jpg ou png et qu'il pèse moins de <strong>512 Ko</strong></span>
 
           <div class="mt-2" x-show="photoPreview">
             <span

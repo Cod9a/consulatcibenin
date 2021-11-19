@@ -45,11 +45,11 @@ export default (_) => ({
         this.$refs.button.focus()
     },
     onArrowUp() {
-        this.selected = this.selected - 1 < 1 ? this.optionCount : this.selected - 1
-        this.$refs.listbox.children[this.selected - 1].scrollIntoView({ block: 'nearest' })
+        this.selected = this.selected - 1 < 0 ? this.optionCount : this.selected - 1
+        this.$refs.listbox.children[this.selected].scrollIntoView({ block: 'nearest' })
     },
     onArrowDown() {
-        this.selected = this.selected + 1 > this.optionCount ? 1 : this.selected + 1
-        this.$refs.listbox.children[this.selected - 1].scrollIntoView({ block: 'nearest' })
+        this.selected = this.selected + 1 > this.optionCount - 1 ? 0 : this.selected
+        this.$refs.listbox.children[this.selected].scrollIntoView({ block: 'nearest' })
     },
 })

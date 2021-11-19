@@ -5303,7 +5303,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_meeting_create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/meeting-create */ "./resources/js/components/meeting-create.js");
 /* harmony import */ var _components_calendar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/calendar */ "./resources/js/components/calendar.js");
 /* harmony import */ var _components_custom_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/custom-select */ "./resources/js/components/custom-select.js");
+/* harmony import */ var _components_country_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/country-select */ "./resources/js/components/country-select.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -5314,6 +5316,7 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('carteConsulaireDocumentFo
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('meetingCreate', _components_meeting_create__WEBPACK_IMPORTED_MODULE_2__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('calendar', _components_calendar__WEBPACK_IMPORTED_MODULE_3__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('customSelect', _components_custom_select__WEBPACK_IMPORTED_MODULE_4__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('countrySelect', _components_country_select__WEBPACK_IMPORTED_MODULE_5__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 
 /***/ }),
@@ -5672,6 +5675,115 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/components/country-select.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/country-select.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  return {
+    items: [],
+    value: null,
+    selected: null,
+    open: false,
+    optionCount: null,
+    activeDescendant: null,
+    init: function init() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/api/countries');
+
+              case 2:
+                response = _context.sent;
+                _this.items = response.data;
+                _this.optionCount = _this.items.length;
+
+                _this.$watch('selected', function (_) {
+                  if (!open) return;
+
+                  if (_this.selected === null) {
+                    _this.activeDescendant = '';
+                    return;
+                  }
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    choose: function choose(option) {
+      this.value = option;
+      this.open = false;
+      this.$dispatch('input', this.items[this.value]);
+    },
+    onButtonClick: function onButtonClick() {
+      var _this2 = this;
+
+      this.selected = this.value;
+      this.open = true;
+      this.$nextTick(function () {
+        _this2.$refs.listbox.focus();
+
+        if (_this2.selected !== null) _this2.$refs.listbox.children[_this2.selected].scrollIntoView({
+          block: 'nearest'
+        });
+      });
+    },
+    onOptionSelect: function onOptionSelect() {
+      if (this.selected !== null) {
+        this.value = this.selected;
+        this.$dispatch('input', this.items[this.value]);
+      }
+
+      this.open = false;
+      this.$refs.button.focus();
+    },
+    onEscape: function onEscape() {
+      this.open = false;
+      this.$refs.button.focus();
+    },
+    onArrowUp: function onArrowUp() {
+      this.selected = this.selected - 1 < 0 ? this.optionCount : this.selected - 1;
+      this.$refs.listbox.children[this.selected].scrollIntoView({
+        block: 'nearest'
+      });
+    },
+    onArrowDown: function onArrowDown() {
+      this.selected = this.selected + 1 > this.optionCount - 1 ? 0 : this.selected + 1;
+      this.$refs.listbox.children[this.selected - 1].scrollIntoView({
+        block: 'nearest'
+      });
+    }
+  };
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/custom-select.js":
 /*!**************************************************!*\
   !*** ./resources/js/components/custom-select.js ***!
@@ -5763,14 +5875,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$refs.button.focus();
     },
     onArrowUp: function onArrowUp() {
-      this.selected = this.selected - 1 < 1 ? this.optionCount : this.selected - 1;
-      this.$refs.listbox.children[this.selected - 1].scrollIntoView({
+      this.selected = this.selected - 1 < 0 ? this.optionCount : this.selected - 1;
+      this.$refs.listbox.children[this.selected].scrollIntoView({
         block: 'nearest'
       });
     },
     onArrowDown: function onArrowDown() {
-      this.selected = this.selected + 1 > this.optionCount ? 1 : this.selected + 1;
-      this.$refs.listbox.children[this.selected - 1].scrollIntoView({
+      this.selected = this.selected + 1 > this.optionCount - 1 ? 0 : this.selected;
+      this.$refs.listbox.children[this.selected].scrollIntoView({
         block: 'nearest'
       });
     }
