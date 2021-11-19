@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarteControllerDocumentFormController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DemandsController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\DocumentController;
@@ -31,3 +32,4 @@ Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.ind
 Route::post('/meetings', [MeetingController::class, 'store'])->name('meetings.store');
 Route::get('/meetings/{meeting}/qr-code', [QrCodeController::class, 'show'])->name('meetings.qr-code.show');
 Route::get('/demands/{demand}/qr-code', [QrCodeCarteConsulaireController::class, 'show'])->name('demands.qr-code.show');
+Route::get('countries', [CountryController::class, 'index'])->name('countries.index');

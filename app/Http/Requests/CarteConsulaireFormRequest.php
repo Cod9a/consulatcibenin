@@ -31,8 +31,8 @@ class CarteConsulaireFormRequest extends FormRequest
             'origin_country' => ['required', 'string', 'max:255'],
             'origin_commune' => ['required', 'string', 'max:255'],
             'job' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255', 'min:8'],
-            'phone_alt' => ['nullable', 'string', 'max:255', 'min:8', ''],
+            'phone' => ['required', 'string', 'max:255', 'min:8', 'not_regex:/[a-zA-Z]+/'],
+            'phone_alt' => ['nullable', 'string', 'max:255', 'min:8', 'not_regex:/[a-zA-Z]+/'],
             'email' => ['required', 'email', 'string'],
             'genre' => ['required', 'string', 'max:255', 'in:male,female'],
             'mailbox' => ['nullable', 'string', 'max:255'],
@@ -52,8 +52,8 @@ class CarteConsulaireFormRequest extends FormRequest
             // That's it for the second form
             'benin_contact_fullname' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'ci_contact_fullname' => ['required', 'not_regex:/[0-9]+/','string', 'max:255'],
-            'benin_contact_phone' => ['required', 'string', 'max:255', 'min:8'],
-            'ci_contact_phone' => ['required', 'string', 'max:255', 'min:8'],
+            'benin_contact_phone' => ['required', 'string', 'max:255', 'min:8',  'regex:/^\+229/', 'not_regex:/[a-zA-Z]+/'],
+            'ci_contact_phone' => ['required', 'string', 'max:255', 'min:8',  'regex:/^\+225/', 'not_regex:/[a-zA-Z]+/'],
             // That's it for the third form
             'eye_color' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'hair_color' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],

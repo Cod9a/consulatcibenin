@@ -4,19 +4,21 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class PhoneInput extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $error;
     public $disabled;
+    public $error;
+    public $default;
 
-    public function __construct($error = false, $disabled = false)
+    public function __construct($error = false, $default = null, $disabled = false)
     {
         $this->error = $error;
+        $this->default = $default;
         $this->disabled = $disabled;
     }
 
@@ -27,6 +29,6 @@ class Input extends Component
      */
     public function render()
     {
-        return view('components.input');
+        return view('components.phone-input');
     }
 }

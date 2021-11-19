@@ -130,7 +130,13 @@
         </div>
         <div class="flex flex-col">
           <label for="phone">Numéro de téléphone</label>
-          <x-input
+          <x-phone-input
+            :error="$errors->has('phone')"
+            x-model="fields.phone"
+            id="phone"
+            name="phone"
+            autocomplete="tel" />
+          {{-- <x-input
             :error="$errors->has('phone')"
             id="phone"
             type="text"
@@ -138,16 +144,14 @@
             name="phone"
             x-model="fields.phone"
             required
-            autocomplete="tel" />
+            autocomplete="tel" /> --}}
           <span class="text-red-500 text-sm" x-text="fieldErrors.phone"></span>
         </div>
         <div class="flex flex-col">
           <label for="phone-alt">Numéro de téléphone alternatif</label>
-          <x-input
+          <x-phone-input
             :error="$errors->has('phone_alt')"
             id="phone-alt"
-            type="text"
-            :value="old('phone_alt')"
             name="phone_alt"
             x-model="fields.phone_alt"
             autocomplete="tel" />
@@ -410,11 +414,10 @@
           <label for="benin-contact-phone"
             >Numéro de téléphone du contact</label
           >
-          <x-input
+          <x-phone-input
             :error="$errors->has('benin_contact_phone')"
+            :default="229"
             id="benin-contact-phone"
-            type="text"
-            :value="old('benin_contact_phone')"
             name="benin_contact_phone"
             x-model="fields.benin_contact_phone"
             required />
@@ -438,11 +441,10 @@
         </div>
         <div class="flex flex-col">
           <label for="ci-contact-phone">Numéro de téléphone du contact</label>
-          <x-input
+          <x-phone-input
+            :default="225"
             :error="$errors->has('ci_contact_phone')"
             id="ci-contact-phone"
-            type="text"
-            :value="old('ci_contact_phone')"
             name="ci_contact_phone"
             x-model="fields.ci_contact_phone"
             required />
