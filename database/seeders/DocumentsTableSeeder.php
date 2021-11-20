@@ -17,7 +17,7 @@ class DocumentsTableSeeder extends Seeder
         Document::create([
             'title' => 'Carte Consulaire Biométrique',
             'key' => 'carte-consulaire',
-            'description' => 'Eos tota dicunt democritum no. Has natum gubergren ne. Est viris soleat sadipscing cu. Legere epicuri insolens eu nec, dicit virtute urbanitas id nam, qui in habeo semper eligendi.',
+            'description' => 'L’immatriculation consulaire est une formalité administrative qui concerne les béninois résidant régulièrement dans un pays étranger. Elle constitue un préalable pour bénéficier de la protection consulaire et des différentes prestations fournies par les représentations consulaires.',
             'price' => 10000,
             'validity' => 5,
         ]);

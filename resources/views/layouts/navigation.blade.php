@@ -73,11 +73,6 @@
         >Accueil</x-nav-link
       >
       <x-nav-link
-        :href="route('demands.show')"
-        :active="request()->routeIs('demands.show')"
-        >Statut de votre demande</x-nav-link
-      >
-      <x-nav-link
         :href="route('demands.index')"
         :active="request()->routeIs('demands.index')"
         >Faire une demande</x-nav-link
@@ -100,6 +95,11 @@
           "
           >Vip</span
         >
+        <x-nav-link
+          :href="route('demands.show')"
+          :active="request()->routeIs('demands.show')"
+          >Statut de votre demande</x-nav-link
+        >
       </x-nav-link>
     </ul>
   </div>
@@ -108,13 +108,6 @@
     <li>
       <x-nav-link href="/" :active="request()->routeIs('welcome')"
         >Accueil</x-nav-link
-      >
-    </li>
-    <li>
-      <x-nav-link
-        :href="route('demands.show')"
-        :active="request()->routeIs('demands.show')"
-        >Statut de votre demande</x-nav-link
       >
     </li>
     <li>
@@ -145,6 +138,13 @@
           >Vip</span
         >
       </x-nav-link>
+    </li>
+    <li>
+      <x-nav-link
+        :href="route('demands.show')"
+        :active="request()->routeIs('demands.show')"
+        >Statut de votre demande</x-nav-link
+      >
     </li>
   </ul>
 </nav>
