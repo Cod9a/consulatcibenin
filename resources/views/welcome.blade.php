@@ -118,7 +118,7 @@
             gap-8
           ">
                 <div class="">
-                    <img src="{{ asset('images/image.png') }}" alt="" />
+                    <img src="{{ asset('images/specimen.png') }}" alt=""  class="w-full h-full object-cover object-center" />
                 </div>
                 <div class="flex flex-col justify-between items-start">
                     <h1 class="text-3xl font-bold">
