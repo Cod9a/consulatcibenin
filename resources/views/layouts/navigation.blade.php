@@ -67,20 +67,25 @@
     <ul
       @click.away="open = false"
       class="bg-white px-4 py-4 space-y-4 rounded-md shadow-lg max-w-md w-full">
+    <li>
       <x-nav-link
         :href="route('welcome')"
-        :active="request()->routeIs('welcome')"
-        >Accueil</x-nav-link
-      >
+        :active="request()->routeIs('welcome')">
+        Accueil
+      </x-nav-link>
+    </li>
+    <li>
       <x-nav-link
         :href="route('demands.index')"
-        :active="request()->routeIs('demands.index')"
-        >Faire une demande</x-nav-link
-      >
+        :active="request()->routeIs('demands.index')">
+        Faire une demande
+      </x-nav-link>
+    </li>
+    <li>
       <x-nav-link
         :href="route('meetings.create')"
-        :active="request()->route('meetings.create')"
-        >Rendez-vous
+        :active="request()->route('meetings.create')">
+        Rendez-vous
         <span
           class="
             uppercase
@@ -92,37 +97,36 @@
             rounded-lg
             text-green-700
             bg-green-200
-          "
-          >Vip</span
-        >
-        <x-nav-link
-          :href="route('demands.show')"
-          :active="request()->routeIs('demands.show')"
-          >Statut de votre demande</x-nav-link
-        >
+          ">Vip</span>
       </x-nav-link>
+    </li>
+    <li>
+      <x-nav-link
+          :href="route('demands.show')"
+          :active="request()->routeIs('demands.show')">
+          Statut de votre demande
+      </x-nav-link>
+    </li>
     </ul>
   </div>
 
   <ul class="md:flex space-x-8 hidden">
     <li>
-      <x-nav-link href="/" :active="request()->routeIs('welcome')"
-        >Accueil</x-nav-link
-      >
+      <x-nav-link href="/" :active="request()->routeIs('welcome')">Accueil</x-nav-link>
     </li>
     <li>
       <x-nav-link
         :href="route('demands.index')"
-        :active="request()->routeIs('demands.index')"
-        >Faire une demande</x-nav-link
-      >
+        :active="request()->routeIs('demands.index')">
+        Faire une demande
+      </x-nav-link>
     </li>
     <li>
       <x-nav-link
         :href="route('meetings.create')"
         :active="request()->routeIs('meetings.create')"
-        class="text-gray-800 hover:text-gray-600 text-medium"
-        >Rendez-vous
+        class="text-gray-800 hover:text-gray-600 text-medium">
+        Rendez-vous
         <span
           class="
             uppercase
@@ -134,17 +138,17 @@
             rounded-lg
             text-green-700
             bg-green-200
-          "
-          >Vip</span
-        >
+          ">
+          Vip
+        </span>
       </x-nav-link>
     </li>
     <li>
       <x-nav-link
         :href="route('demands.show')"
-        :active="request()->routeIs('demands.show')"
-        >Statut de votre demande</x-nav-link
-      >
+        :active="request()->routeIs('demands.show')">
+        Statut de votre demande
+      </x-nav-link>
     </li>
   </ul>
 </nav>
