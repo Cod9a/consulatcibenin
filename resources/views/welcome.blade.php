@@ -234,6 +234,7 @@
         </div>
         @endif
     </div>
+    <x-chat-component phoneNumber="22996160650" opened="true" />
 </body>
 
 </html>

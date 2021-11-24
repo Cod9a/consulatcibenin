@@ -43,7 +43,7 @@ class CarteConsulaireFormRequest extends FormRequest
             'mother_first_name' => ['required','not_regex:/[0-9]+/', 'string', 'max:255'],
             'father_last_name' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'mother_last_name' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
-            'ethnic_grp' => ['required', 'string', 'max:255'],
+            'ethnic_grp' => ['required', 'string', 'max:255', 'not_regex:/[0-9]+/'],
             'arrival_date_ci' => ['required', 'date', 'before:now'],
             'residence_commune' => ['required', 'string', 'max:255'],
             'marital_situation' => ['required', 'string', 'max:255', 'in:single,couple'],
