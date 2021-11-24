@@ -27,7 +27,7 @@
         <div class="bg-amber-300 px-4 py-2 flex items-start justify-between">
             <div class="w-14 h-14 rounded-full bg-gray-200 bg-cover bg-center border-2 border-white" style="background-image: url(https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)"></div>
             <div class="flex items-center space-x-4">
-                <button @click="fullScreen = !fullScreen">
+                <button @click="fullScreen = !fullScreen" class="hidden sm:inline-block">
                     <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
                     </svg>
