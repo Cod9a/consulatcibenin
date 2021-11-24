@@ -23,7 +23,7 @@
             </svg>
         </span>
     </button>
-    <div class="fixed max-w-md w-full bottom-0 right-0 transition-all ease-in-out duration-2000 bg-white shadow-md rounded-md m-6 overflow-hidden" :class="{'h-[32rem]': !fullScreen, 'h-[48rem]': fullScreen}" x-show="opened" a x-transition.opacity.scale.duration.200ms.delay.200ms x-cloak>
+    <div class="fixed sm:max-w-md w-full h-full bottom-0 right-0 transition-all ease-in-out duration-2000 bg-white shadow-md rounded-md sm:m-6 overflow-hidden" :class="{'sm:h-[32rem]': !fullScreen, 'sm:h-[48rem]': fullScreen}" x-show="opened" a x-transition.opacity.scale.duration.200ms.delay.200ms x-cloak>
         <div class="bg-amber-300 px-4 py-2 flex items-start justify-between">
             <div class="w-14 h-14 rounded-full bg-gray-200 bg-cover bg-center border-2 border-white" style="background-image: url(https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)"></div>
             <div class="flex items-center space-x-4">
