@@ -1738,11 +1738,11 @@ select{
 	.sm\:inline-block{
 		display: inline-block;
 	}
-	.sm\:h-\[32rem\]{
-		height: 32rem;
+	.sm\:h-3\/5{
+		height: 60%;
 	}
-	.sm\:h-\[48rem\]{
-		height: 48rem;
+	.sm\:h-4\/5{
+		height: 80%;
 	}
 	.sm\:h-screen{
 		height: 100vh;
