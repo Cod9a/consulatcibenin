@@ -131,6 +131,7 @@
             x-model="fields.phone"
             id="phone"
             name="phone"
+            :default="225"
             autocomplete="tel" />
           {{-- <x-input
             :error="$errors->has('phone')"

@@ -15,7 +15,7 @@ export default (documentId, callbackUrl) => ({
         }
     },
     fieldErrors: {
-        'photo': '',
+        'photo': null,
         'first_name': '',
         'last_name': '',
         'birthdate': '',
