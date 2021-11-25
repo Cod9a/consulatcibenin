@@ -246,7 +246,7 @@
             x-text="fieldErrors.father_last_name"></span>
         </div>
         <div class="flex flex-col">
-          <label for="father-first-name">Prénom du père(s)</label>
+          <label for="father-first-name">Prénom(s) du père</label>
           <x-input
             :error="$errors->has('father_first_name')"
             id="father-first-name"
@@ -276,7 +276,7 @@
             x-text="fieldErrors.mother_last_name"></span>
         </div>
         <div class="flex flex-col">
-          <label for="mother-first-name">Prénom de la mère(s)</label>
+          <label for="mother-first-name">Prénom(s) de la mère</label>
           <x-input
             :error="$errors->has('mother_first_name')"
             id="mother-first-name"
@@ -314,6 +314,7 @@
             name="arrival_date_ci"
             x-model="fields.arrival_date_ci"
             required />
+          <span class="text-sm text-gray-600">Elle doit être antérieure à celle d'aujourd'hui</span>
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.arrival_date_ci"></span>
@@ -394,7 +395,7 @@
         x-show="step === 3"
         data-step="3">
         <div class="flex flex-col">
-          <label for="benin-contact-fullname">Contact au Bénin</label>
+          <label for="benin-contact-fullname">Contact au Bénin (Nom complet)</label>
           <x-input
             :error="$errors->has('benin_contact_fullname')"
             id="benin-contact-fullname"
@@ -422,7 +423,7 @@
             x-text="fieldErrors.benin_contact_phone"></span>
         </div>
         <div class="flex flex-col">
-          <label for="ci-contact-fullname">Contact en Côte d'Ivoire</label>
+          <label for="ci-contact-fullname">Contact en Côte d'Ivoire (Nom complet)</label>
           <x-input
             :error="$errors->has('ci_contact_fullname')"
             id="ci-contact-fullname"
@@ -474,7 +475,7 @@
                 reader.readAsDataURL($refs.photo.files[0]);
             " />
 
-          <label for="photo">Photo</label>
+          <label for="photo">Photo (Facultatif)</label>
           <span class="mt-1 text-sm font-medium tracking wide block text-gray-500 mb-2">Assurez-vous que votre photo est au format jpg ou png et qu'il pèse moins de <strong>512 Ko</strong></span>
 
           <div class="mt-2" x-show="photoPreview">

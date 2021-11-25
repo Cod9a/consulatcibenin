@@ -22,14 +22,16 @@ class CarteControllerDocumentFormController extends Controller
             'status' => 'invalid',
             'payment_token' => Str::random(6),
         ]);
-        $name = $request->file('photo')->getClientOriginalName();
-        $path = $request->file('photo')->store('public/enclosed');
-        Enclosed::create([
-            'name' => $name,
-            'path' => $path,
-            'label' => 'Photo d\'identité',
-            'demand_id' => $demand->id,
-        ]);
+        if ($request->hasFile('photo')) {
+            $name = $request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->store('public/enclosed');
+            Enclosed::create([
+                'name' => $name,
+                'path' => $path,
+                'label' => 'Photo d\'identité',
+                'demand_id' => $demand->id,
+            ]);
+        }
         $documentForm = DocumentForm::create(Arr::add($request->except('photo'), 'demand_id', $demand->id));
         Mail::to($documentForm->email)->send(new DemandCreated($demand));
         return response()->json(['payment_token' => $demand->payment_token, 'nom' => $documentForm->last_name, 'prenom' => $documentForm->first_name, 'demandId' => $demand->id], 201);
