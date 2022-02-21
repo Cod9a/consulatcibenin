@@ -53,6 +53,13 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'attestations' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/attestations'),
+            'url' => env('APP_URL').'public/storage/attestations',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

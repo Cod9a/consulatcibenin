@@ -58,6 +58,7 @@
           text-white text-left
           hover:bg-blueGray-600
         ">
+        <i class="fas fa-search"></i> 
         Rechercher
       </button>
     </form>
@@ -108,7 +109,7 @@
         </span>
         <h3
           class="text-center flex-grow text-xl font-semibold"
-          x-text="`Demand pour le document '${demand?.document?.title}'`"></h3>
+          x-text="`Demande pour le document '${demand?.document?.title}'`"></h3>
       </div>
       <div
         class="

@@ -33,12 +33,12 @@ class MeetingController extends Controller
         $demand = Demand::firstWhere('payment_token', $request->payment_token);
         if ($demand->rejection) {
             throw ValidationException::withMessages([
-                'payment_token' => 'The selected payment token is invalid',
+                'payment_token' => 'Le code de suivi entré n\'est pas valide.',
             ]);
         }
         if ($demand->meeting) {
             throw ValidationException::withMessages([
-                'payment_token' => 'Vous ne pouvez pas etablir plusieurs rendez-vous pour une meme demande',
+                'payment_token' => 'Vous ne pouvez pas etablir plusieurs rendez-vous pour une même demande',
             ]);
         }
         if ($demand->status !== 'disponible')  {

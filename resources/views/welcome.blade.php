@@ -170,70 +170,73 @@
     <footer class="bg-blueGray-800 text-white text-center py-6">
         <div>&copy; Webcoom. Tous droits réservés.</div>
     </footer>
+    
     @if(session('success'))
-    <div x-data="{showModal: true}">
-        <x-sucess-modal x-show="showModal" x-cloak>
-            <x-slot name="title">Votre demande a été créée avec succès</x-slot>
-            <x-slot name="description">{!! session('success') !!}</x-slot>
-            <x-slot name="actions">
-                <button @click="showModal = false" class="
-              w-full
-              inline-flex
-              justify-center
-              rounded-md
-              border border-transparent
-              shadow-sm
-              px-4
-              py-2
-              bg-blue-600
-              text-base
-              font-medium
-              text-white
-              hover:bg-blue-700
-              focus:outline-none
-              focus:ring-2
-              focus:ring-offset-2
-              focus:ring-blue-500
-              sm:ml-3 sm:text-sm
-            ">
-                    Fermer
-                </button>
-            </x-slot>
-        </x-sucess-modal>
-        @endif @if(session('errors'))
-        <div x-transition:enter="ease-in duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="ease-out duration-300" x-transition:leave-start="-translate-y-full" x-transition:leave-end="translate-y-0">
-            <div class="bg-gray-900 fixed top-0 inset-x-0">
-                <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-                    <div class="flex items-center justify-between flex-wrap">
-                        <div class="w-0 flex-1 flex flex-col items-start">
-                            <h2 class="font-medium text-green-500 truncate">Erreur</h2>
-                            <p class="text-white text-sm truncate">
-                                {!! session('errors') !!} >
-                            </p>
-                        </div>
-                        <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                            <button @click.prevent="open = false" type="button" class="
-                    -mr-1
-                    flex
-                    p-2
-                    rounded-md
-                    hover:bg-red-200
-                    focus:outline-none focus:ring-2 focus:ring-white
-                    sm:-mr-2
-                  ">
-                                <span class="sr-only">Dismiss</span>
-                                <!-- Heroicon name: outline/x -->
-                                <svg class="h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+        <div x-data="{showModal: true}">
+            <x-sucess-modal x-show="showModal" x-cloak>
+                <x-slot name="title">Votre rendez-vous a été défini avec succès</x-slot>
+                <x-slot name="description">{!! session('success') !!}</x-slot>
+                <x-slot name="actions">
+                    <button @click="showModal = false" class="
+                  w-full
+                  inline-flex
+                  justify-center
+                  rounded-md
+                  border border-transparent
+                  shadow-sm
+                  px-4
+                  py-2
+                  bg-blue-600
+                  text-base
+                  font-medium
+                  text-white
+                  hover:bg-blue-700
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-blue-500
+                  sm:ml-3 sm:text-sm
+                ">
+                        Fermer
+                    </button>
+                </x-slot>
+            </x-sucess-modal>
+            
+            @if(session('errors'))
+            <div x-transition:enter="ease-in duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="ease-out duration-300" x-transition:leave-start="-translate-y-full" x-transition:leave-end="translate-y-0">
+                <div class="bg-gray-900 fixed top-0 inset-x-0">
+                    <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+                        <div class="flex items-center justify-between flex-wrap">
+                            <div class="w-0 flex-1 flex flex-col items-start">
+                                <h2 class="font-medium text-green-500 truncate">Erreur</h2>
+                                <p class="text-white text-sm truncate">
+                                    {!! session('errors') !!} >
+                                </p>
+                            </div>
+                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                <button @click.prevent="open = false" type="button" class="
+                        -mr-1
+                        flex
+                        p-2
+                        rounded-md
+                        hover:bg-red-200
+                        focus:outline-none focus:ring-2 focus:ring-white
+                        sm:-mr-2
+                      ">
+                                    <span class="sr-only">Dismiss</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
-        @endif
-    </div>
+    @endif
     <x-chat-component phoneNumber="22996160650" opened="true" />
 </body>
 

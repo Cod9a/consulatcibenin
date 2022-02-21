@@ -6,19 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Demand;
 
 class DemandCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $demand;
+    protected $attestation;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($demand)
+    public function __construct(Demand $demand)
     {
         $this->demand = $demand;
     }
@@ -30,6 +32,7 @@ class DemandCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.demand.created');
+        $attestation = $this->demand->attestation;
+        return $this->subject('Demande créée avec succès')->markdown('emails.demand.created');
     }
 }

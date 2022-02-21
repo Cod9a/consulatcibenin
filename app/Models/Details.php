@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Meeting extends Model
+class Details extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $casts = [
-        'meeting_date' => 'date',
-    ];
+
+    public function demand() {
+        return $this->belongsTo(Demand::class);
+    }
 }

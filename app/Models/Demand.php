@@ -26,6 +26,10 @@ class Demand extends Model
     public function documentForm() {
         return $this->hasOne(DocumentForm::class);
     }
+
+    public function detail() {
+        return $this->hasOne(Details::class);
+    }
     
     public function meeting() {
         return $this->hasOne(Meeting::class);

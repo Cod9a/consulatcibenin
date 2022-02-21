@@ -4232,7 +4232,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
@@ -5459,12 +5459,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (documentId, callbackUrl) {
   return {
     step: 1,
-    nSteps: 4,
+    nSteps: 6,
     uniqueId: null,
     successModal: false,
     document: {},
-    visited: [true, false, false, false],
-    errors: [false, false, false, false],
+    visited: [true, false, false, false, false, false],
+    errors: [false, false, false, false, false, false],
     init: function init() {
       var _this = this;
 
@@ -5494,6 +5494,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     fieldErrors: {
       'photo': '',
+      'certificate': '',
+      'ID': '',
       'first_name': '',
       'last_name': '',
       'birthdate': '',
@@ -5525,10 +5527,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'hair_color': '',
       'complexion_color': '',
       'other_signs': '',
-      'height': ''
+      'height': '',
+      'enrollment_time': '',
+      'enrollment_date': '',
+      'rdv': '',
+      'ship': ''
     },
     fields: {
-      'photo': null,
+      'photo': '',
+      'certificate': '',
+      'ID': '',
       'first_name': '',
       'last_name': '',
       'birthdate': '',
@@ -5547,7 +5555,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'arrival_date_ci': '',
       'residence_commune': '',
       'marital_situation': 'single',
-      'n_children': 0,
+      'n_children': '',
       'ravip_number': '',
       'benin_contact_fullname': '',
       'ci_contact_fullname': '',
@@ -5557,34 +5565,186 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'hair_color': '',
       'complexion_color': '',
       'other_signs': '',
-      'height': 0
+      'height': '',
+      'enrollment_time': '',
+      'enrollment_date': '',
+      'rdv': '',
+      'ship': ''
     },
     nextStep: function nextStep() {
       if (this.validateFields()) {
         this.visited[this.step++] = true;
       }
     },
+    formatted: function formatted(date) {
+      if (date != '') {
+        var upDate = new Date(date);
+        return ("0" + upDate.getDate()).slice(-2) + '/' + ("0" + (upDate.getMonth() + 1)).slice(-2) + '/' + upDate.getFullYear();
+      }
+    },
     validateFields: function validateFields() {
       var value = true;
+      var getPhone = null;
       var result = this.$refs.form.querySelectorAll('fieldset');
-      var fields = result[this.step - 1].querySelectorAll('input[required]');
 
-      var _iterator = _createForOfIteratorHelper(fields),
-          _step;
+      if (this.step === 5) {
+        var enrollment_date = document.querySelector('#enrollment_date');
+        var enrollment_time = document.querySelector('#enrollment_time');
+        var champs = result[4].querySelectorAll('input,textarea');
+
+        var _iterator = _createForOfIteratorHelper(champs),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var c = _step.value;
+
+            if (c.getAttribute('name') === 'rdv' && c.checked) {
+              var splitTime = enrollment_time.value.split(':');
+              var splitDate = enrollment_date.value.split('-');
+
+              if (splitDate[0] && splitDate[1] && splitDate[2]) {
+                var getDate = new Date(enrollment_date.value);
+                var getDay = new Date();
+                if (getDay.getDay() === 3 || getDay.getDay() === 4 || getDay.getDay() === 5) getDay.setDate(getDay.getDate() + 4);else getDay.setDate(getDay.getDate() + 2);
+
+                if (getDate >= getDay) {
+                  if (splitTime[0] && splitTime[1]) {
+                    if (parseInt(splitTime[0]) < 8 || parseInt(splitTime[0]) > 11) {
+                      alert('Les heures d\'enrôlement sont comprises entre 08h et 11h30');
+                      value = false;
+                    } else {
+                      if (parseInt(splitTime[0]) === 11) {
+                        if (parseInt(splitTime[1]) > 30) {
+                          alert('Nous ne recevons pas au delà de 11h30 pour les enrôlements');
+                          value = false;
+                        } else {
+                          value = true;
+                          this.document.price += 2000;
+                        }
+                      }
+                    }
+                  } else {
+                    alert('Veuillez définir l\'heure');
+                    value = false;
+                  }
+                } else {
+                  value = false;
+                  alert('Enrôlement à compter de deux jours ouvrables de la demande!');
+                }
+              } else {
+                value = false;
+                alert('Revoyez la date svp!');
+              }
+            }
+
+            if (c.getAttribute('name') === 'ship' && c.checked) {
+              this.document.price += 1000;
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      var fields = result[this.step - 1].querySelectorAll('[required]');
+
+      var _iterator2 = _createForOfIteratorHelper(fields),
+          _step2;
 
       try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var f = _step.value;
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var f = _step2.value;
 
           if (f.value === '' || f.value === undefined || f.value === null) {
-            this.fieldErrors[f.getAttribute('name')] = "Le champs ".concat(f.getAttribute('name').replace('_', ' '), " est obligatoire");
+            this.fieldErrors[f.getAttribute('name')] = "Ce champs est obligatoire";
             value = false;
+          } else {
+            if (f.type === 'email' && f.value.length > 0) {
+              console.log('Oups');
+              var email = f.value.toLowerCase();
+
+              if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                this.fieldErrors[f.getAttribute('name')] = '';
+              } else {
+                this.fieldErrors[f.getAttribute('name')] = "L'adresse email n'est pas valide";
+                value = false;
+              }
+            } else {
+              this.fieldErrors[f.getAttribute('name')] = '';
+            }
+          }
+
+          if (f.getAttribute('name') === 'phone' || f.getAttribute('name') === 'phone_alt' || f.getAttribute('name') === 'benin_contact_phone' || f.getAttribute('name') === 'ci_contact_phone') {
+            getPhone = f.value.split(" ")[1];
+
+            if (getPhone.length < 8) {
+              this.fieldErrors[f.getAttribute('name')] = "Revoyez svp ce champs";
+              value = false;
+            } else {
+              if (isNaN(parseFloat(getPhone)) || !isFinite(getPhone)) {
+                this.fieldErrors[f.getAttribute('name')] = "Ce champs n'est pas correcte";
+                value = false;
+              } else {
+                this.fieldErrors[f.getAttribute('name')] = '';
+              }
+            }
+          }
+
+          if (f.type === 'date') {
+            if (f.getAttribute('name') === 'birthdate') {
+              var today = new Date();
+
+              var _splitDate = f.value.split('-');
+
+              var year = _splitDate[0];
+              var month = _splitDate[1] - 1;
+              var day = _splitDate[2];
+              var age = today.getFullYear() - year;
+
+              if (age < 18) {
+                this.fieldErrors[f.getAttribute('name')] = "Vous n'\xEAtes pas majeur!";
+                value = false;
+              } else {
+                this.fieldErrors[f.getAttribute('name')] = '';
+              }
+            } else {
+              var yester = new Date();
+              yester.setDate(yester.getDate() - 1);
+
+              var _splitDate2 = f.value.split('/');
+
+              var date = Date.parse(_splitDate2[0], _splitDate2[1] - 1, _splitDate2[2]);
+
+              if (date >= yester) {
+                this.fieldErrors[f.getAttribute('name')] = "Ce champs doit \xEAtre ant\xE9rieur \xE0 aujourd'hui";
+                value = false;
+              } else {
+                this.fieldErrors[f.getAttribute('name')] = '';
+              }
+            }
+          }
+
+          if (f.type === 'number') {
+            // if(parseInt(f.value) > 30) {
+            //     this.fieldErrors[f.getAttribute('name')] = `Euh!`;
+            //     value = false;
+            // } else {
+            if (parseInt(f.value) < 0) {
+              this.fieldErrors[f.getAttribute('name')] = "Champs incorrecte!";
+              value = false;
+            } else {
+              this.fieldErrors[f.getAttribute('name')] = '';
+            } // }
+
           }
         }
       } catch (err) {
-        _iterator.e(err);
+        _iterator2.e(err);
       } finally {
-        _iterator.f();
+        _iterator2.f();
       }
 
       return value;
@@ -5610,7 +5770,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response, _i2, _Object$entries2, _Object$entries2$_i, _key, _, item, fieldset, _value;
+        var formData, _i, _Object$entries, _Object$entries$_i, key, value, response;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -5648,18 +5808,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.t0 = _context2["catch"](2);
 
                 if (_context2.t0.response.status === 422) {
-                  _this2.fieldErrors = _context2.t0.response.data.errors;
-
-                  for (_i2 = 0, _Object$entries2 = Object.entries(_this2.fieldErrors); _i2 < _Object$entries2.length; _i2++) {
-                    _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2), _key = _Object$entries2$_i[0], _ = _Object$entries2$_i[1];
-                    item = document.querySelector("[name=".concat(_key, "]"));
-                    fieldset = item.closest('fieldset');
-
-                    if (fieldset) {
-                      _value = fieldset.getAttribute("data-step");
-                      _this2.errors[_value - 1] = true;
-                    }
-                  }
+                  _this2.fieldErrors = _context2.t0.response.data.errors; // for (const [key, _] of Object.entries(this.fieldErrors)) {
+                  //     const item = document.querySelector(`[name=${key}]`);
+                  //     const fieldset = item.closest('fieldset');
+                  //     if (fieldset) {
+                  //         const value = fieldset.getAttribute("data-step");
+                  //         this.errors[value - 1] = true;
+                  //     }
+                  // }
                 }
 
               case 12:
@@ -24183,7 +24339,7 @@ try {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"/home/emmanuel/Documents/Projects/new-consulat-services","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
 
 /***/ })
 

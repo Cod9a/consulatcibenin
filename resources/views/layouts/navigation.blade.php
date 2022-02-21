@@ -81,7 +81,7 @@
         Faire une demande
       </x-nav-link>
     </li>
-    <li>
+    {{--<!-- <li>
       <x-nav-link
         :href="route('meetings.create')"
         :active="request()->route('meetings.create')">
@@ -99,7 +99,7 @@
             bg-green-200
           ">Vip</span>
       </x-nav-link>
-    </li>
+    </li> -->--}}
     <li>
       <x-nav-link
           :href="route('demands.show')"
@@ -121,7 +121,7 @@
         Faire une demande
       </x-nav-link>
     </li>
-    <li>
+    {{--<li>
       <x-nav-link
         :href="route('meetings.create')"
         :active="request()->routeIs('meetings.create')"
@@ -141,7 +141,7 @@
           ">
           Vip
         </span>
-      </x-nav-link>
+      </x-nav-link>--}}
     </li>
     <li>
       <x-nav-link

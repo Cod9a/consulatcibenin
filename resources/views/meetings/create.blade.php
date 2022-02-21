@@ -26,8 +26,7 @@
             sm:before:bg-gray-400
             sm:before:top-0
             sm:before:left-3
-          "
-        >
+          ">
           <span
             class="
               flex-shrink-0
@@ -44,7 +43,7 @@
             "
             >1</span
           >
-          <h3>Numero de la quittance de paiement</h3>
+          <h3>Numero de suivi</h3>
         </button>
             <div>
                 <div
@@ -89,6 +88,7 @@
                           focus:outline-none
                           px-2
                         "
+                        placeholder="Numero de suivi"
                         required
                       />
                 </div>
@@ -108,8 +108,7 @@
             sm:before:bg-gray-400
             sm:before:top-0
             sm:before:left-3
-          "
-        >
+          ">
           <span
             class="
               flex-shrink-0
@@ -128,7 +127,7 @@
           >
           <h3>Choisir la date du rendez-vous</h3>
         </button>
-    <div class="flex flex-col">
+      <div class="flex flex-col">
         <div
           class="mt-8 sm:ml-10"
           @selected="setSelectedDate($event.detail)"
@@ -221,9 +220,9 @@
             </div>
           </div>
           <span class="text-red-600 text-sm mt-2" x-text="errors.meeting_date"></span>
-          </div>
+        </div>
           <div class="sm:ml-10">
-          <button
+              <button
             @click="sendInformations()"
             class="
               px-3
@@ -249,9 +248,68 @@
           >
             Confirmer le rendez-vous
           </button>
-          </div>
+            </div>
         </div>
       </div>
+      {{--<div class="relative mt-4">
+        <button
+          @click="step = 0"
+          class="
+            flex
+            space-x-4
+            sm:before:content-['']
+            sm:before:absolute
+            sm:before:h-full
+            sm:before:w-px
+            sm:before:bg-gray-400
+            sm:before:top-0
+            sm:before:left-3
+            mt-4
+          ">
+          <span
+            class="
+              flex-shrink-0
+              inline-flex
+              items-center
+              justify-center
+              rounded-full
+              font-medium
+              w-6
+              h-6
+              relative
+              bg-blue-500
+              text-white
+            "
+            >3</span
+          >
+          <h3>Choisir l'heure du rendez-vous</h3>
+        </button>
+            <div>
+                <div
+                  class="
+                    flex flex-col
+                    sm:flex-row
+                    space-y-2
+                    sm:space-y-0
+                    items-stretch
+                    sm:items-start
+                    justify-start
+                    mt-8
+                    sm:ml-10
+                  "
+                  x-transition.delay.300ms:enter="ease-in duration-300"
+                  x-transition.delay.300ms:enter-start="opacity-0 -translate-y-4"
+                  x-transition.delay.300ms:enter-end="opacity-100 translate-y-0"
+                  x-transition:leave="ease-out duration-300"
+                  x-transition:leave-start="opacity-100 translate-y-0"
+                  x-transition:leave-end="opacity-0 -translate-y-4"
+                  x-cloak
+                    >
+                      <input type="time" name="">
+                </div>
+                <span class="text-red-600 sm:ml-10 mt-2 text-sm" x-text="errors.time"></span>
+            </div>
+      </div>--}}
     </div>
 
   <x-sucess-modal x-show="successModal">
@@ -294,5 +352,47 @@
       </a>
     </x-slot>
   </x-sucess-modal>
+  <x-default-modal x-show="errors.payment_token" x-cloak>
+      <x-slot name="content">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div>
+            <div class="mt-3 text-center sm:mt-0 sm:m-4 sm:text-left">
+              <h3
+                class="text-lg leading-6 font-medium text-red-600"
+                id="modal-title" x-text="errors.payment_token">
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button
+            @click="errors.payment_token = null"
+            type="button"
+            class="
+              mt-3
+              w-full
+              inline-flex
+              justify-center
+              rounded-md
+              border border-gray-300
+              shadow-sm
+              px-4
+              py-2
+              bg-white
+              text-base
+              font-medium
+              text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-indigo-500
+              sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
+            ">
+            Fermer
+          </button>
+        </div>
+      </x-slot>
+    </x-default-modal>
   </section>
 </x-app-layout>

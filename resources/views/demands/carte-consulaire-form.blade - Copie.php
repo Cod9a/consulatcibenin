@@ -144,7 +144,7 @@
             x-model="fields.phone"
             id="phone"
             name="phone"
-            :default="225"
+            :default="229"
             required
             autocomplete="tel" />
           {{-- <x-input
@@ -218,7 +218,8 @@
             x-text="fieldErrors.spouse_name"></span>
         </div>
         <div class="flex flex-col">
-          <label for="email">Email</label>
+          <label for="email">Email <span
+            class="text-red-500 text-sm">*</span></label>
           <x-input
             :error="$errors->has('email')"
             id="email"
@@ -226,6 +227,7 @@
             :value="old('email')"
             name="email"
             x-model="fields.email"
+            required
             autocomplete="email" />
           <span class="text-red-500 text-sm" x-text="fieldErrors.email"></span>
         </div>
@@ -316,12 +318,14 @@
         <div class="flex flex-col">
           <label for="ethnic-grp">Ethnie <span
             class="text-red-500 text-sm">*</span></label>
-          <select x-model="fields.ethnic_grp" required class="mt-2">
-            <option value="" default hidden>-- Ethnie --</option>
-            @foreach(getEthnics() as $index => $ethnic)
-              <option value="{{ $ethnic->name }}">{{ $ethnic->name }}</option>
-            @endforeach
-          </select>
+          <x-input
+            :error="$errors->has('ethnic_grp')"
+            id="ethnic-grp"
+            type="text"
+            :value="old('ethnic_grp')"
+            name="ethnic_grp"
+            x-model="fields.ethnic_grp"
+            required />
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.ethnic_grp"></span>
@@ -497,8 +501,8 @@
               <option value="Bleu">Bleu</option>
               <option value="Gris">Gris</option>
               <option value="Marron">Marron</option>
-              <option value="Noir">Noir</option>
-              <option value="Noisette">Marron</option>
+              <option value="Noisette">Noisette</option>
+              <option value="Vert">Vert</option>
             </select>
           <!-- <x-input
             :error="$errors->has('eye_color')"
@@ -518,14 +522,18 @@
             class="text-red-500 text-sm">*</span></label>
             <select x-model="fields.hair_color" required class="mt-2">
               <option value="" default hidden>-- Couleur des cheveux --</option>
-              <option value="Auburn">Auburn</option>
               <option value="Blanc">Blanc</option>
-              <option value="Blond">Blond</option>
-              <option value="Châtain">Châtain</option>
-              <option value="Grisonnant">Grisonnant</option>
               <option value="Noir">Noir</option>
               <option value="Roux">Roux</option>
             </select>
+          <!-- <x-input
+            :error="$errors->has('hair_color')"
+            id="hair-color"
+            type="text"
+            :value="old('hair_color')"
+            name="hair_color"
+            x-model="fields.hair_color"
+            required /> -->
           <span
             class="text-red-500 text-sm"
             x-text="fieldErrors.hair_color"></span>
@@ -535,11 +543,11 @@
             class="text-red-500 text-sm">*</span></label>
           <select x-model="fields.complexion_color" required class="mt-2">
             <option value="" default hidden>-- Teint --</option>
-            <option value="Blanc">Blanc</option>
-            <option value="Bronzé">Bronzé</option>
+            <option value="Albinos">Albinos</option>
+            <option value="Blond">Blond</option>
             <option value="Clair">Clair</option>
             <option value="Noir">Noir</option>
-            <option value="Rouquin">Rouquin</option>
+            <option value="Roux">Roux</option>
           </select>
           <!-- <x-input
             :error="$errors->has('complexion_color')"
@@ -878,6 +886,16 @@
                 x-text="fieldErrors.enrollment_date"></span>
             </div>
           </div> -->
+
+          <div class="flex flex-row items-center mt-4">
+              <input type="checkbox" name="mail" class="mr-2" id="mail" x-model="fields.mail" value="mail" checked>
+              <label for="mail">Je veux recevoir un mail</label>
+          </div>
+          <div class="flex flex-row items-center mt-4">
+              <input type="checkbox" name="sms" class="mr-2" id="sms" x-model="fields.sms" value="sms">
+              <label for="sms">Je veux recevoir un SMS <span
+                class="text-red-500 text-sm">(frais sups : 100F)</span></label>
+          </div>
         </div>
         
       </fieldset>
@@ -1052,6 +1070,8 @@
         <h3 class="font-bold">Informations supplémentaires</h3>
         <p class="mt-2" x-show="fields.rdv"><i class="fa-solid fa-check text-green-500"></i>&nbsp; &nbsp; Vous avez demandé un rendez-vous pour le <span x-text="formatted(fields.enrollment_date)"></span> à <span x-text="fields.enrollment_time"></span></p>
         <p class="mt-2" x-show="fields.ship"><i class="fa-solid fa-check text-green-500"></i>&nbsp; &nbsp; Vous avez demandé une livraison</p>
+        <p class="mt-2" x-show="fields.mail"><i class="fa-solid fa-check text-green-500"></i>&nbsp; &nbsp; Vous allez recevoir un mail</p>
+        <p class="mt-2" x-show="fields.sms"><i class="fa-solid fa-check text-green-500"></i>&nbsp; &nbsp; Vous allez recevoir un SMS</p>
       </div>
 
       <div class="flex flex-row items-center mt-4" x-show="step == 6" x-cloak>

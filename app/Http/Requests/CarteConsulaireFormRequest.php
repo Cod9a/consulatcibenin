@@ -24,7 +24,9 @@ class CarteConsulaireFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => ['nullable', 'image', 'max:512'],
+            'photo' => ['nullable', 'max:2048'],
+            'certificate' => ['nullable', 'max:2048'],
+            'ID' => ['nullable', 'max:2048'],
             'first_name' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'last_name' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'birthdate' => ['required', 'date', 'before:now'],
@@ -46,9 +48,9 @@ class CarteConsulaireFormRequest extends FormRequest
             'ethnic_grp' => ['required', 'string', 'max:255', 'not_regex:/[0-9]+/'],
             'arrival_date_ci' => ['required', 'date', 'before:now'],
             'residence_commune' => ['required', 'string', 'max:255', 'not_regex:/[0-9]+/'],
-            'marital_situation' => ['required', 'string', 'max:255', 'in:single,couple'],
+            'marital_situation' => ['required', 'string', 'max:255', 'in:single,maried'],
             'n_children' => ['required', 'numeric', 'min:0'],
-            'ravip_number' => ['required', 'numeric'],
+            'ravip_number' => ['nullable', 'numeric'],
             // That's it for the second form
             'benin_contact_fullname' => ['required', 'not_regex:/[0-9]+/', 'string', 'max:255'],
             'ci_contact_fullname' => ['required', 'not_regex:/[0-9]+/','string', 'max:255'],
@@ -60,6 +62,10 @@ class CarteConsulaireFormRequest extends FormRequest
             'complexion_color' => ['required', 'not_regex:/[0-9]+/','string', 'max:255'],
             'other_signs' => ['nullable', 'string'],
             'height' => ['required', 'min:0', 'numeric', 'max:300'],
+            'rdv' => ['nullable'],
+            'sms' => ['nullable'],
+            'mail' => ['nullable'],
+            'ship' => ['nullable']
         ];
     }
 
